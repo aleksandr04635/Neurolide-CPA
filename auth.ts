@@ -31,9 +31,9 @@ export const {
         where: { id: params.user.id },
         data: {
           emailVerified: new Date(),
-          storeName: params?.user?.name
+          /*  storeName: params?.user?.name
             ? params?.user?.name + "'s store"
-            : "New store",
+            : "New store", */
         },
       });
     },
@@ -69,7 +69,7 @@ export const {
 
       token.isOAuth = !!existingAccount; //only OAuth user have accounts in DB
       token.name = existingUser.name;
-      token.storeName = existingUser.storeName;
+      //token.storeName = existingUser.storeName;
       token.image = existingUser.image;
       token.email = existingUser.email;
       token.role = existingUser.role;
@@ -95,7 +95,7 @@ export const {
 
       if (session.user) {
         session.user.name = token.name;
-        session.user.storeName = token.storeName as string;
+        // session.user.storeName = token.storeName as string;
         session.user.image = token.image as string;
         session.user.email = token.email;
         session.user.isOAuth = token.isOAuth as boolean;

@@ -5,7 +5,7 @@ export const SettingsSchema = z
   .object({
     image: z.optional(z.string()),
     name: z.optional(z.string().min(4)),
-    storeName: z.optional(z.string().min(6)),
+    //storeName: z.optional(z.string().min(6)),
     address: z.optional(z.string().min(6)),
     /*  phoneNumber: z.optional(
       z
