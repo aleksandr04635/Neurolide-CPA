@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+/* body, */
+:root {
+  height: 100%;
+}
+/* body {
+  margin: 0;
+  padding: 0;
+}
+ */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%; /*190, 83%, 60%; 190, 83%, 23%;    */
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 82.8% 60.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 190, 83%, 23%; /* 217.2 32.6% 17.5%; =rgb(29, 40, 58)    #1d283a */
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  /*  body {
+    @apply bg-background text-foreground;
+  } */
+}
+/* body[data-scroll-locked] {
+  min-width: 100%;
+} */
+
+.link-stand {
+  @apply text-base text-blue-700 hover:text-cyan-500 dark:text-cyan-400 dark:hover:text-blue-500 hover:no-underline;
+}
+.link-stand.hover\:underline:hover {
+  text-decoration-line: none !important;
+}
+
+.main-button {
+  @apply py-5 px-10 text-base font-normal text-white rounded-xl
+   bg-gradient-to-r from-blue-from via-blue-via to-blue-to
+   hover:from-blue-500 hover:via-blue-700 hover:to-blue-900;
+}
+.danger-button {
+  @apply py-5 px-16 text-base font-normal text-white rounded-xl
+   bg-gradient-to-r from-amber-400 via-orange-500 to-red-600
+   hover:from-amber-500 hover:via-orange-600 hover:to-red-700;
+}
+.gray-button {
+  @apply py-5 px-10 text-base font-normal text-white rounded-xl
+   bg-gradient-to-r from-gray-300 via-gray-400 to-gray-500
+   hover:from-gray-400 hover:via-gray-500 hover:to-gray-600;
+}
+
+tr.table-row-class {
+  border-radius: 10px;
+  outline: 5px solid #f2f2f2;
+}
+.PhoneInputInput:focus-visible {
+  @apply outline-none;
+}
+.phone-input:has(.PhoneInputInput:focus-visible) {
+  @apply /* bg-red-500 */ ring-1 ring-blue-from focus-visible:ring-1  focus-visible:ring-blue-from;
+}
