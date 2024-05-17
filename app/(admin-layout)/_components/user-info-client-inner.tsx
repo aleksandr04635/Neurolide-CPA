@@ -93,7 +93,8 @@ const UserInfoClientIner = ({ fullUser }: Props) => {
                 <td className="py-2 w-[130px] text-sm text-gray-text-2">
                   Роль:
                 </td>
-                <td className=" font-semibold text-sm">
+                <td className="">
+                  {/* font-semibold text-sm */}
                   {userRole(user?.role || "")}
                 </td>
               </tr>
@@ -119,18 +120,18 @@ const UserInfoClientIner = ({ fullUser }: Props) => {
                 <td className="py-2 w-[130px] text-sm text-gray-text-2">
                   Номер телефону:
                 </td>
-                <td className=" font-semibold text-sm">
+                <td className="  text-sm">
                   {fullUser?.phoneNumber && fullUser?.phoneNumber != "null"
                     ? fullUser?.phoneNumber
-                    : "Not entered"}
+                    : "Не введено"}
                 </td>
               </tr>
               <tr>
                 <td className="py-2 w-[130px] text-sm text-gray-text-2">
                   Адреса:
                 </td>
-                <td className=" font-semibold text-sm">
-                  {fullUser?.address || "Not entered"}
+                <td className="  text-sm">
+                  {fullUser?.address || "Не введено"}
                 </td>
               </tr>
             </tbody>

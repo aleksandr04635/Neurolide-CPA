@@ -18,10 +18,10 @@ export const SettingsSchema = z
         z.coerce
           .string()
           .min(4)
-          .regex(/^\+?[0-9]{12}$/, "Invalid phone number"),
+          .regex(/^\+?[0-9]{12}$/, "Невірний номер телефону"),
         z.coerce
           .string()
-          .regex(/^(Not entered)|(null)$/, "Invalid phone number"),
+          .regex(/^(Не введено)|(null)$/, "Невірний номер телефону"),
       ])
       .optional()
       .transform((e) => (e === "" ? undefined : e)),
@@ -84,6 +84,75 @@ export const SettingsSchema = z
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       );
   } */
+
+export const UserSchema = z.object({
+  name: z.optional(z.string().min(4)),
+  role: z.enum([UserRole.MANAGER, UserRole.BRAND, UserRole.AFFILIATE]),
+  //storeName: z.optional(z.string().min(6)),
+  address: z.optional(z.string().min(6)),
+  /*  phoneNumber: z.optional(
+      z
+        .string()
+        .min(6)
+        .regex(/^\+?[0-9]{12}$/, "Invalid phone number") // .regex(/^\+?[0-9]{10,12}$/, "Invalid phone number")
+    ), */
+  phoneNumber: z
+    .union([
+      z.coerce
+        .string()
+        .min(4)
+        .regex(/^\+?[0-9]{12}$/, "Невірний номер телефону"),
+      z.coerce
+        .string()
+        .regex(/^(Не введено)|(null)$/, "Невірний номер телефону"),
+    ])
+    .optional()
+    .transform((e) => (e === "" ? undefined : e)),
+
+  index: z.coerce
+    .number()
+    .nonnegative()
+    .refine((x) => x * 100 - Math.trunc(x * 100) < Number.EPSILON),
+  payments: z.coerce
+    .number()
+    .nonnegative()
+    .refine((x) => x * 100 - Math.trunc(x * 100) < Number.EPSILON),
+  budget: z.coerce
+    .number()
+    .nonnegative()
+    .refine((x) => x * 100 - Math.trunc(x * 100) < Number.EPSILON),
+  lids: z.coerce.number().int(),
+  writeoffs: z.coerce
+    .number()
+    .nonnegative()
+    .refine((x) => x * 100 - Math.trunc(x * 100) < Number.EPSILON),
+  balance: z.coerce
+    .number()
+    .nonnegative()
+    .refine((x) => x * 100 - Math.trunc(x * 100) < Number.EPSILON),
+  clicks: z.coerce.number().int(),
+  hold: z.coerce.number().int(),
+  accruals: z.coerce
+    .number()
+    .nonnegative()
+    .refine((x) => x * 100 - Math.trunc(x * 100) < Number.EPSILON),
+  notifications: z.coerce.number().int(),
+});
+
+/*   index    Decimal @default(0)
+  payments Decimal @default(0)
+  budget   Decimal @default(0)
+
+  lids      Int     @default(0)
+  writeoffs Decimal @default(0)
+  balance   Decimal @default(0)
+
+  clicks   Int     @default(0)
+  hold     Int     @default(0)
+  accruals Decimal @default(0)
+
+  notifications Int @default(0) */
+
 export const MediaChannelSchema = z.object({
   userId: z.string().min(4),
   image: z.string().min(4),
@@ -93,8 +162,7 @@ export const MediaChannelSchema = z.object({
   views: z.coerce.number().int().positive().min(1),
   price: z.coerce
     .number()
-    .positive()
-    .min(1)
+    .nonnegative()
     .refine((x) => x * 100 - Math.trunc(x * 100) < Number.EPSILON), //.multipleOf(0.01)
 });
 
@@ -107,7 +175,7 @@ export const CardSchema = z.object({
       /^([\w-]+\ )*([\w-]+)$/,
       "Name must consist of groups of one space separated words, consisting of letters and -"
     ),
-  //  /^([\w-]+\ )*([\w-]+)$/
+
   number: z
     .string()
     .regex(
@@ -128,13 +196,11 @@ export const OfferSchema = z.object({
 
   price: z.coerce
     .number()
-    .positive()
-    .min(1)
+    .nonnegative()
     .refine((x) => x * 100 - Math.trunc(x * 100) < Number.EPSILON), //.multipleOf(0.01)
   balance: z.coerce
     .number()
-    .positive()
-    .min(1)
+    .nonnegative()
     .refine((x) => x * 100 - Math.trunc(x * 100) < Number.EPSILON),
 });
 

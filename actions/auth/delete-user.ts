@@ -10,16 +10,17 @@ import { revalidatePath } from "next/cache";
 export const deleteUser = async (id: string) => {
   console.log("id from deleteUser: ", id);
   try {
-    const user = await currentUser();
+    const currentUserData = await currentUser();
+    console.log("currentUserData from deleteUser: ", currentUserData);
 
-    if (!user) {
-      return { error: "Unauthorized" };
+    if (!currentUserData) {
+      return { error: "Не достатній рівень авторизації" };
     }
 
-    const dbUser = await getUserById(user.id);
+    const currentUserInDB = await getUserById(currentUserData.id);
 
-    if (!dbUser) {
-      return { error: "Unauthorized" };
+    if (!currentUserInDB) {
+      return { error: "Не достатній рівень авторизації" };
     }
 
     /*  if (!id && isNaN(id)) {
@@ -27,38 +28,41 @@ export const deleteUser = async (id: string) => {
     } */
     //console.log("isNaN(IdNum) from UserPage: ", isNaN(IdNum));
 
-    const userDB = await db.user.findUnique({
+    const userToDeleteInDB = await db.user.findUnique({
       where: {
         id: id,
       },
     });
-    if (!userDB) {
+    if (!userToDeleteInDB) {
       return { error: "User with this Id doesn't exist" };
     }
-    console.log("userDB from deleteUser: ", userDB);
-    console.log("user from deleteUser: ", user);
+    console.log("userToDeleteInDB from deleteUser: ", userToDeleteInDB);
+    console.log("curentUser from deleteUser: ", currentUserData);
     console.log(
-      " userDB.id == user.id from deleteUser: ",
-      userDB.id == user.id
+      " userToDeleteInDB.id == curentUser.id from deleteUser: ",
+      userToDeleteInDB.id == currentUserData.id
     );
     console.log(
-      " userDB.id == user.id from deleteUser: ",
-      userDB.id !== user.id
+      " userToDeleteInDB.id == curentUser.id from deleteUser: ",
+      userToDeleteInDB.id !== currentUserData.id
     );
     console.log(
-      ' dbUser.role !== "MANAGER" from deleteUser: ',
-      dbUser.role !== "MANAGER"
+      ' currentUserInDB.role !== "MANAGER" from deleteUser: ',
+      currentUserInDB.role !== "MANAGER"
     );
 
-    if (userDB.id !== user.id && dbUser.role !== "MANAGER") {
+    if (
+      userToDeleteInDB.id !== currentUserData.id &&
+      currentUserInDB.role !== "MANAGER"
+    ) {
       return { error: "Ви не можете видалити цього користувача" };
     }
 
-    if (userDB.id == user.id) {
+    if (userToDeleteInDB.id == currentUserData.id) {
       await signOut();
       revalidatePath("/profile");
     }
-    await db.user.delete({
+    /*   REMOVE */ await db.user.delete({
       where: {
         id: id,
       },

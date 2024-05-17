@@ -23,17 +23,53 @@ const UsersPage = async () => {
       createdAt: "desc",
     }, */
   });
-  //console.log("UsersPage from UsersPage:", users);
+  //console.log("users from UsersPage:", users);
 
   const formattedUsers: UsersColumn[] = users.map((item) => ({
+    id: item.id,
     numId: item.numId as number,
     name: item.name || "",
     email: item.email || "",
-    address: item.address || "Not entered",
-    phoneNumber: item.phoneNumber || "Not entered",
-    role: userRole(item.role) || "",
+    address: item.address || "Не введено",
+    phoneNumber: item.phoneNumber || "Не введено",
+    role: item.role || "",
+    index: Number(item.index),
+    payments: Number(item.payments),
+    budget: Number(item.budget),
+    lids: item.lids,
+    writeoffs: Number(item.writeoffs),
+    balance: Number(item.balance),
+    clicks: item.clicks,
+    hold: item.hold,
+    accruals: Number(item.accruals),
+    notifications: item.notifications,
   }));
   //console.log("formattedUsers from UsersPage:", formattedUsers);
+
+  /*   id            String    @id @default(cuid())
+  numId         Int       @default(autoincrement())
+  name          String?
+  address       String?
+  phoneNumber   String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String    @default("https://res.cloudinary.com/dqwdfhxgl/image/upload/v1712025676/contacts/mtgn8ph1cyvu5hebxf1x.jpg")
+  password      String?
+  role          UserRole  @default(AFFILIATE)
+
+  index    Decimal @default(0)
+  payments Decimal @default(0)
+  budget   Decimal @default(0)
+
+  lids      Int     @default(0)
+  writeoffs Decimal @default(0)
+  balance   Decimal @default(0)
+
+  clicks   Int     @default(0)
+  hold     Int     @default(0)
+  accruals Decimal @default(0)
+
+  notifications Int @default(0) */
 
   //lg:max-w-[1200px]
   return (

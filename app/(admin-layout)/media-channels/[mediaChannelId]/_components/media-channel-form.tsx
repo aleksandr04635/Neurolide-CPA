@@ -32,8 +32,8 @@ import { DEFAULT_MEDIA_CHANNEL_IMAGE } from "@/lib/utils";
 import { createMediaChannel } from "@/actions/media-channel/createMediaChannel";
 import { editMediaChannel } from "@/actions/media-channel/editMediaChannel";
 import { deleteMediaChannel } from "@/actions/media-channel/deleteMediaChannel";
-import CurrencyInput from "@/app/(admin-layout)/_components/currency-input";
-import NumberInput from "@/app/(admin-layout)/_components/number-input";
+import CurrencyInput from "@/components/currency-input";
+import NumberInput from "@/components/number-input";
 
 type Props = { initialData: MediaChannel | null };
 

@@ -73,7 +73,7 @@ const UserInfoClientIner = ({ fullUser }: Props) => {
                   Address:
                 </td>
                 <td className=" font-semibold text-sm">
-                  {fullUser?.address || "Not entered"}
+                  {fullUser?.address || "Не введено"}
                 </td>
               </tr>
               <tr>
@@ -83,7 +83,7 @@ const UserInfoClientIner = ({ fullUser }: Props) => {
                 <td className=" font-semibold text-sm">
                   {fullUser?.phoneNumber && fullUser?.phoneNumber != "null"
                     ? fullUser?.phoneNumber
-                    : "Not entered"}
+                    : "Не введено"}
                 </td>
               </tr>
               <tr>

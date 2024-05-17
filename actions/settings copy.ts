@@ -25,7 +25,6 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
     }
 
     const dbUser = await getUserById(user.id);
-    console.log("dbUser from settings: ", dbUser);
 
     if (!dbUser) {
       return { error: "Unauthorized" };
@@ -51,15 +50,11 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
         values.password,
         dbUser.password
       );
-      console.log("passwordsMatch from settings: ", passwordsMatch);
       if (!passwordsMatch) {
-        return { error: "Невірний пароль!" };
+        return { error: "Incorrect password!" };
       }
       const hashedPassword = await bcrypt.hash(values.newPassword, 10);
       values.password = hashedPassword;
-      values.newPassword = undefined;
-    } else {
-      values.password = undefined;
       values.newPassword = undefined;
     }
 
@@ -70,7 +65,6 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
     }
     //console.log("values2 from settings:", values);
 
-    console.log("values before updatedUser from settings:", values);
     const updatedUser = await db.user.update({
       where: { id: dbUser.id },
       data: {

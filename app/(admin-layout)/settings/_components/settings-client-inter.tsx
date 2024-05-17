@@ -72,10 +72,10 @@ const SettingsClientInter = ({ fullUser }: Props) => {
     },
   });
 
-  /*   const watchAllFields = form.watch();
+  const watchAllFields = form.watch();
   useEffect(() => {
     console.log("watchAllFields from ProductForm: ", watchAllFields);
-  }, [watchAllFields]); */
+  }, [watchAllFields]);
 
   const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
     startTransition(() => {
@@ -103,13 +103,28 @@ const SettingsClientInter = ({ fullUser }: Props) => {
       <Card className=" w-full  shadow-none  border-0 rounded-xl sm:w-[400px]">
         <CardHeader>
           <p className="text-2xl font-semibold text-center py-0">
-            Profile settings
+            Настройки профілю
           </p>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
+            <form
+              /* autoComplete="off" */
+
+              className="space-y-5"
+              onSubmit={form.handleSubmit(onSubmit)}
+            >
               <div className="space-y-3">
+                <input
+                  type="email"
+                  name="fake_email"
+                  className="hidden"
+                  /*  style={{
+                    display: none,
+                  }} */
+
+                  aria-hidden="true"
+                />
                 <FormField
                   control={form.control}
                   name="image"
@@ -124,7 +139,9 @@ const SettingsClientInter = ({ fullUser }: Props) => {
                             onRemove={() => field.onChange("")}
                           />
                         </FormControl>
-                        <FormLabel>Click the image to change it</FormLabel>
+                        <FormLabel>
+                          Натисніть на зображенні щоб його змінити
+                        </FormLabel>
                       </div>
                       <FormMessage />
                     </FormItem>
@@ -136,7 +153,7 @@ const SettingsClientInter = ({ fullUser }: Props) => {
                   name="role"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Role</FormLabel>
+                      <FormLabel>Роль</FormLabel>
                       <Select
                         disabled={isPending}
                         onValueChange={field.onChange}
@@ -149,11 +166,11 @@ const SettingsClientInter = ({ fullUser }: Props) => {
                         </FormControl>
                         <SelectContent>
                           <SelectItem value={UserRole.AFFILIATE}>
-                            Affiliate
+                            Афіліат
                           </SelectItem>
-                          <SelectItem value={UserRole.BRAND}>Brand</SelectItem>
+                          <SelectItem value={UserRole.BRAND}>Бренд</SelectItem>
                           <SelectItem value={UserRole.MANAGER}>
-                            Manager
+                            Менеджер
                           </SelectItem>
                         </SelectContent>
                       </Select>
@@ -167,7 +184,7 @@ const SettingsClientInter = ({ fullUser }: Props) => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Your name</FormLabel>
+                      <FormLabel>Ім’я</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -221,7 +238,7 @@ const SettingsClientInter = ({ fullUser }: Props) => {
                   name="phoneNumber"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Your phone number</FormLabel>
+                      <FormLabel>Номер телефону</FormLabel>
                       <FormControl>
                         <PhoneInputWithCountry
                           defaultCountry="UA"
@@ -253,11 +270,11 @@ const SettingsClientInter = ({ fullUser }: Props) => {
                   name="address"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Your address</FormLabel>
+                      <FormLabel>Адреса</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder="Your address"
+                          placeholder="Адреса"
                           disabled={isPending}
                         />
                       </FormControl>
@@ -271,13 +288,18 @@ const SettingsClientInter = ({ fullUser }: Props) => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>
+                        Пароль (ввести потрібно тільки для зміни пароля)
+                      </FormLabel>
                       <FormControl>
                         <div className="relative">
                           <Input
                             {...field}
+                            /*  autoСomplete="false" */
+                            /*  autoComplete="off" */
+
                             disabled={isPending}
-                            placeholder="password"
+                            placeholder="Пароль"
                             type={visible ? "text" : "password"}
                             /* type="password" */
                           />
@@ -299,13 +321,15 @@ const SettingsClientInter = ({ fullUser }: Props) => {
                   name="newPassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>New Password</FormLabel>
+                      <FormLabel>
+                        Новий пароль (ввести потрібно тільки для зміни пароля)
+                      </FormLabel>
                       <FormControl>
                         <div className="relative">
                           <Input
                             {...field}
                             disabled={isPending}
-                            placeholder="password"
+                            placeholder="Новий пароль"
                             type={visible ? "text" : "password"}
                             /* type="password" */
                           />
@@ -335,7 +359,7 @@ const SettingsClientInter = ({ fullUser }: Props) => {
                 disabled={isPending}
                 className=" main-button        "
               >
-                Save
+                Зберегти зміни
               </Button>
             </form>
           </Form>

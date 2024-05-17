@@ -21,6 +21,7 @@ const Table = React.forwardRef<
 Table.displayName = "Table";
 
 //[&_tr]:bg-white"hover:text-white
+//text-gray-text
 const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
@@ -28,7 +29,8 @@ const TableHeader = React.forwardRef<
   <thead
     ref={ref}
     className={cn(
-      " font-semibold text-base text-gray-text  [&_tr]:border-b ",
+      " font-semibold text-base [&_tr]:text-white  [&_tr]:border-b  " +
+        " [&_tr]:bg-gradient-to-r [&_tr]:from-blue-from [&_tr]:via-blue-via [&_tr]:to-blue-to  ",
       className
     )}
     {...props}

@@ -57,7 +57,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
     let mailOptions = {
       from: `Neurolide <${process.env.EMAIL_FROM}>`,
       to: email,
-      subject: "Reset your password",
+      subject: "Зміна пароля",
       text: resetLink,
       html: emailTemplate({
         base_url: domain,
@@ -142,7 +142,7 @@ export const sendVerificationEmail = async (
     let mailOptions = {
       from: `Neurolide <${process.env.EMAIL_FROM}>`,
       to: email,
-      subject: "Confirm your email",
+      subject: "Підтвердіть Ваш email",
       text: confirmLink,
       html: emailTemplate({
         base_url: domain,

@@ -57,7 +57,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         loading={loading}
       />
       {user && (data.userId == user.id || user.role == "MANAGER") ? (
-        <div className="flex flex-row gap-2 justify-center items-center">
+        <div className="flex flex-row gap-2 justify-start items-center">
           {/* sm:flex-row  */}
           <Link href={`/media-channels/${data.id}`}>
             <div className=" ">

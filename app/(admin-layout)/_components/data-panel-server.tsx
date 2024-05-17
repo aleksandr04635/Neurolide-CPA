@@ -15,7 +15,7 @@ const DataPanel = async (props: Props) => {
   const user = session?.user;
   //console.log("user form  DataPanel: ", user);
   const fullUser = await db.user.findFirst({ where: { id: user?.id } });
-  console.log("fullUser form  DataPanel: ", fullUser);
+  //console.log("fullUser form  DataPanel: ", fullUser);
 
   // return <UserInfoClientIner fullUser={fullUser} />;
   //xl:w-fit
@@ -63,7 +63,7 @@ const DataPanel = async (props: Props) => {
                 <div className="h-full flex flex-col justify-center pt-2 pl-2 sm:pl-6 ">
                   <div className="text-gray-text text-sm">Ліди</div>
                   <div className="text-black text-lg font-semibold">
-                    {fullUser?.clicks}
+                    {fullUser?.lids}
                   </div>
                 </div>
                 <div className="w-full h-[8px] bg-[#FF0000]"></div>
@@ -131,7 +131,7 @@ const DataPanel = async (props: Props) => {
         </div>
       )}
 
-      <div className=" flex-0 w-[70px] h-[70px] bg-white rounded-lg">
+      <div className="lg:hidden flex-0 w-[70px] h-[70px] bg-white rounded-lg">
         <UserButton />
       </div>
     </div>

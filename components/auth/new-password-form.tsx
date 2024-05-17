@@ -9,7 +9,7 @@ import { BsEyeSlash, BsEye } from "react-icons/bs";
 import { useParams, useRouter } from "next/navigation";
 
 //import Router from "next/router"; //new
-import { useRouter as useRouter2 } from "next/router";
+//import { useRouter as useRouter2 } from "next/router";
 
 import { NewPasswordSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
@@ -32,7 +32,7 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 export const NewPasswordForm = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const router2 = useRouter2();
+  // const router2 = useRouter2();
   const token = searchParams.get("token");
 
   const [error, setError] = useState<string | undefined>("");
@@ -59,7 +59,7 @@ export const NewPasswordForm = () => {
         if (data?.success) {
           router.push(DEFAULT_LOGIN_REDIRECT);
           //Router.reload();//NW
-          router2.reload();
+          // router2.reload();
         }
       });
     });

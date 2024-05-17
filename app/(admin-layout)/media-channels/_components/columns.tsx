@@ -171,7 +171,7 @@ export const columns: ColumnDef<MediaChannelColumn>[] = [
 
   {
     id: "actions",
-    header: "Actions",
+    header: "Дії",
     cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];

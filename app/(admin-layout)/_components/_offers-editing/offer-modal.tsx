@@ -31,7 +31,7 @@ import { createOffer } from "@/actions/offer/createOffer";
 import { getOffer } from "@/actions/offer/getOffer";
 import { Offer } from "@prisma/client";
 import { editOffer } from "@/actions/offer/editOffer";
-import CurrencyInput from "../currency-input";
+import CurrencyInput from "../../../../components/currency-input";
 
 interface OfferModalProps {
   isOpen: boolean;
