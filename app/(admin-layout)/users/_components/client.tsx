@@ -31,7 +31,7 @@ export const UsersClient: React.FC<UsersClientProps> = ({ data }) => {
         searchKey="name"
         columns={columns}
         data={data}
-        headerText={`${data.length} users`}
+        headerText={`Користувачі: ${data.length} `}
         buttonText={""}
         buttonLink={""}
       />

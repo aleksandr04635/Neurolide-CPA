@@ -8,6 +8,7 @@ import { CellAction } from "./cell-action";
 import Image from "next/image";
 import { DEFAULT_MEDIA_CHANNEL_IMAGE } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { StatusCell } from "./status-cell";
 //import { DataCell } from "./data-cell";
 
 export type MediaChannelColumn = {
@@ -16,6 +17,9 @@ export type MediaChannelColumn = {
   userId: string;
   description: string;
   image: string;
+  link: string;
+  isVerified: boolean;
+  isVIP: boolean;
   subscribers: number;
   views: number;
   price: number;
@@ -30,7 +34,7 @@ export const columns: ColumnDef<MediaChannelColumn>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hover:bg-white space-x-2 pl-1 pr-0 "
+          className=" space-x-2 pl-1 pr-0 "
         >
           <p className="text-base font-semibold">Id</p>
           {column.getIsSorted() === "asc" ? (
@@ -49,8 +53,8 @@ export const columns: ColumnDef<MediaChannelColumn>[] = [
     accessorKey: "image",
     header: ({ column }) => {
       return (
-        <Button variant="ghost" className="hover:bg-white space-x-2 pl-1 pr-0 ">
-          <p className="text-base font-semibold">Image</p>
+        <Button variant="ghost" className=" space-x-2 pl-0 pr-0 ">
+          <p className="text-base font-semibold px-0">Зображення</p>
         </Button>
       );
     },
@@ -72,9 +76,9 @@ export const columns: ColumnDef<MediaChannelColumn>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hover:bg-white space-x-2 pl-1 pr-0 "
+          className=" space-x-2 pl-1 pr-0 "
         >
-          <p className="text-base font-semibold">Name</p>
+          <p className="text-base font-semibold">Назва</p>
 
           {column.getIsSorted() === "asc" ? (
             <IoIosArrowDown />
@@ -87,10 +91,53 @@ export const columns: ColumnDef<MediaChannelColumn>[] = [
     cell: ({ row }) => (
       //text-gray-text
       <div className="flex flex-col items-start ">
-        <div className="font-semibold text-base">{row.original.name}</div>{" "}
+        <div className="font-semibold text-base">{row.original.name}</div>
         <div>{row.original.description}</div>
       </div>
     ),
+  },
+  {
+    accessorKey: "link",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className=" space-x-2 pl-1 pr-0 "
+        >
+          <p className="text-base font-semibold">Посилання</p>
+
+          {column.getIsSorted() === "asc" ? (
+            <IoIosArrowDown />
+          ) : (
+            <IoIosArrowUp />
+          )}
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      let domain = "";
+      let domain2 = "";
+      try {
+        const url = new URL(row.original.link);
+        domain = url.hostname;
+        const matches = row.original.link.match(
+          /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/im
+        );
+        //console.log("MATCHES", matches);
+        if (matches && matches.length > 0) {
+          domain2 = matches[1];
+        }
+      } catch (error) {}
+      return (
+        //link-stand !hover:text-white
+        <div className="flex flex-col items-start ">
+          <a href={row.original.link} className="">
+            <div className=" text-sm hover:text-orange-300">{domain2}</div>
+          </a>
+        </div>
+      );
+    },
   },
   /*  {
     accessorKey: "createdAt",
@@ -103,9 +150,9 @@ export const columns: ColumnDef<MediaChannelColumn>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hover:bg-white space-x-2 pl-0 pr-0 "
+          className=" space-x-2 pl-0 pr-0 "
         >
-          <p className="text-base font-semibold">Subscribers</p>
+          <p className="text-base font-semibold">Підписники</p>
 
           {column.getIsSorted() === "asc" ? (
             <IoIosArrowDown />
@@ -123,9 +170,9 @@ export const columns: ColumnDef<MediaChannelColumn>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hover:bg-white space-x-2 pl-0 pr-0 "
+          className=" space-x-2 pl-0 pr-0 "
         >
-          <p className="text-base font-semibold">Views</p>
+          <p className="text-base font-semibold">Перегляди</p>
 
           {column.getIsSorted() === "asc" ? (
             <IoIosArrowDown />
@@ -143,9 +190,9 @@ export const columns: ColumnDef<MediaChannelColumn>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hover:bg-white space-x-2 pl-0 pr-0 "
+          className=" space-x-2 pl-0 pr-0 "
         >
-          <p className="text-base font-semibold">Price</p>
+          <p className="text-base font-semibold">Ціна</p>
 
           {column.getIsSorted() === "asc" ? (
             <IoIosArrowDown />
@@ -168,7 +215,27 @@ export const columns: ColumnDef<MediaChannelColumn>[] = [
     //id: "imagesNumber",
     //cell: ({ row }) => <div>{row.original.imagesNumber}</div>,
   }, */
-
+  {
+    id: "isVerified",
+    accessorKey: "isVerified",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className=" space-x-2 pl-1"
+        >
+          <p>Статус </p>
+          {column.getIsSorted() === "asc" ? (
+            <IoIosArrowDown />
+          ) : (
+            <IoIosArrowUp />
+          )}
+        </Button>
+      );
+    },
+    cell: ({ row }) => <StatusCell data={row.original} />,
+  },
   {
     id: "actions",
     header: "Дії",

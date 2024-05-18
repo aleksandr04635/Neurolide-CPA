@@ -48,11 +48,34 @@ export const editMediaChannel = async (data: MediaChannelFormValues) => {
     console.log("mediaChannelDB from editMediaChannel: ", mediaChannelDB);
 
     if (
-      data.userId != user.id &&
+      // data.userId != user.id &&
       mediaChannelDB.userId != user.id &&
       user.role != "MANAGER"
     ) {
-      return { error: "You are not the creator of the media channel" };
+      return { error: "Ви не можете редагувати цей медіа канал" };
+    }
+    if (
+      // data.userId != user.id &&
+      ((data.isVIP == true && mediaChannelDB.isVIP == false) ||
+        (data.isVerified == true && mediaChannelDB.isVerified == false)) &&
+      dbUser.role != "MANAGER"
+    ) {
+      return { error: "Ви не можете підвищити привілегію цього медіа канала" };
+    }
+
+    let domain = "";
+    try {
+      const matches = data.link.match(
+        /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/im
+      );
+      // console.log("MATCHES", matches);
+      if (matches && matches.length > 0) {
+        domain = matches[1];
+      }
+    } catch (error) {}
+    console.log("domain from editMediaChannel: ", domain);
+    if (!domain || domain == data.link) {
+      return { error: "Некоректне посилання" };
     }
 
     const mediaChannelCr = await db.mediaChannel.update({

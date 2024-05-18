@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { OfferColumns, columns } from "./columns";
 import MyButton from "@/components/ui/my-button";
 import Link from "next/link";
-import { DataTableOffersBrand } from "./data-table-offers-brand";
+import { DataTableOffersBrand } from "./data-table-offers";
 
 interface OffersClientProps {
   data: OfferColumns[];
@@ -27,7 +27,7 @@ export const OffersClient: React.FC<OffersClientProps> = ({ data }) => {
         searchKey="name"
         columns={columns}
         data={data}
-        headerText={`${data.length} offers`}
+        headerText={`Офери: ${data.length}`}
       />
     </>
   );

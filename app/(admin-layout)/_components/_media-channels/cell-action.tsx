@@ -7,25 +7,24 @@ import { toast } from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
 
+import { MediaChannelColumn } from "./columns";
 import { AlertModal } from "@/components/ui/alert-modal";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import Link from "next/link";
 import MyButton from "@/components/ui/my-button";
-import { deleteOffer } from "@/actions/offer/deleteOffer";
-import { acceptOffer } from "@/actions/offer/acceptOffer";
-import { declineOffer } from "@/actions/offer/declineOffer";
-import { UsersColumn } from "./columns";
-import { deleteUser } from "@/actions/auth/delete-user";
-import { UserModal } from "./user-modal";
-//import { deleteOffers } from "@/actions/offers/deleteOffers";
+import { deleteMediaChannel } from "@/actions/media-channel/deleteMediaChannel";
+import { MediaChannelModal } from "./media-channel-modal";
+//import { deleteMediaChannel } from "@/actions/mediaChannel/deleteMediaChannel";
 
 interface CellActionProps {
-  data: UsersColumn;
+  data: MediaChannelColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
-  //console.log("data from users CellAction:", data);
+  // console.log("data from media-channels CellAction:", data);
   const user = useCurrentUser();
+  // console.log("user form  CellAction: ", user);
+
   const [loading, setLoading] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
@@ -36,7 +35,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onConfirm = () => {
     setOpen(false);
     startTransition(() => {
-      deleteUser(data.id)
+      deleteMediaChannel(data.id)
         .then((data) => {
           if (data.error) {
             toast.error(
@@ -47,54 +46,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           }
           if (data.success) {
             router.refresh();
-            toast.success("Offer was deleted");
+            toast.success("Media channel was deleted");
           }
         })
         .catch(() => toast.error("Щось пішло не так!"));
     });
   };
-
-  /*  const acceptOfferCommand = () => {
-    setOpen(false);
-    startTransition(() => {
-      acceptOffer({ offerId: data.id, userId: user?.id || "" })
-        .then((data) => {
-          if (data.error) {
-            toast.error(
-              //"err " //
-              data.error
-              //"Make sure you removed all media channels and offers before removing a user."
-            );
-          }
-          if (data.success) {
-            router.refresh();
-            toast.success("Offer was accepted");
-          }
-        })
-        .catch(() => toast.error("Щось пішло не так!"));
-    });
-  };
-
-  const declineOfferCommand = () => {
-    setOpen(false);
-    startTransition(() => {
-      declineOffer({ offerId: data.id, userId: user?.id || "" })
-        .then((data) => {
-          if (data.error) {
-            toast.error(
-              //"err " //
-              data.error
-              //"Make sure you removed all media channels and offers before removing a user."
-            );
-          }
-          if (data.success) {
-            router.refresh();
-            toast.success("Offer was declined");
-          }
-        })
-        .catch(() => toast.error("Щось пішло не так!"));
-    });
-  }; */
 
   return (
     <>
@@ -104,20 +61,20 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         onConfirm={onConfirm}
         loading={loading}
       />
-      <UserModal
+      <MediaChannelModal
         key={data.id}
         /*  id={`UserModal${data.id}`} */
         data={data}
         isOpen={openE}
         onClose={() => setOpenE(false)}
       />
-      {user && user.role == "MANAGER" ? (
-        <div className="flex flex-row gap-4 justify-start items-center">
+      {user && (data.userId == user.id || user.role == "MANAGER") ? (
+        <div className="flex flex-row gap-2 justify-start items-center">
           {/* sm:flex-row  */}
-          {/*  <Link href={`/media-channels/${data.id}`}> */}
+          {/* <Link href={`/media-channels/${data.id}`}> */}
           <div
             onClick={() => setOpenE(true)}
-            className="cursor-pointer rounded-full bg-white p-1"
+            className="cursor-pointer rounded-full bg-white p-1 "
           >
             <svg
               width="21"
@@ -139,10 +96,13 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
                 strokeWidth="2"
               />
             </svg>
+            {/* <MyButton className=" ">
+              <Edit className="mr-2 h-4 w-4" /> Edit
+            </MyButton> */}
           </div>
-          {/*  </Link> */}
+          {/*   </Link> */}
           <div
-            className="cursor-pointer rounded-full bg-white p-1"
+            className=" cursor-pointer rounded-full bg-white p-1"
             onClick={() => setOpen(true)}
           >
             <svg

@@ -11,12 +11,13 @@ import { Separator } from "@/components/ui/separator";
 import { MediaChannelColumn, columns } from "./columns";
 import MyButton from "@/components/ui/my-button";
 import Link from "next/link";
+import { DataTableMediaChannels } from "./data-table-media-channels";
 
 interface MediaChannelsClientProps {
   data: MediaChannelColumn[];
 }
 
-export const MediaChannelsClient: React.FC<MediaChannelsClientProps> = ({
+export const MediaChannelsClientOwn: React.FC<MediaChannelsClientProps> = ({
   data,
 }) => {
   const params = useParams();
@@ -37,13 +38,11 @@ export const MediaChannelsClient: React.FC<MediaChannelsClientProps> = ({
         </Link>
       </div>
       <Separator /> */}
-      <DataTable
+      <DataTableMediaChannels
         searchKey="name"
         columns={columns}
         data={data}
-        headerText={`${data.length} media channels`}
-        buttonText={"New media channel"}
-        buttonLink={"/media-channels/new"}
+        headerText={`Мої медіа канали: ${data.length}`}
       />
     </>
   );

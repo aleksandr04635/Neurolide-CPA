@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { currentUser } from "@/lib/auth";
@@ -24,6 +24,13 @@ const UserInfoClientIner = ({ fullUser }: Props) => {
   // console.log("fullUser form  UserInfoClientIner: ", fullUser);
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/auth/login");
+    }
+    console.log("user changed in UserInfoClientIner: ", user);
+  }, [user]);
 
   const onDelete = () => {
     setOpen(false);

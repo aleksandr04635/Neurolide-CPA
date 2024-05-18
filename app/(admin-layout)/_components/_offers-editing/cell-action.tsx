@@ -101,14 +101,22 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         onConfirm={onConfirm}
         loading={loading}
       />
-      <OfferModal id={data.id} isOpen={openE} onClose={() => setOpenE(false)} />
+      <OfferModal
+        key={data.id}
+        id={data.id}
+        isOpen={openE}
+        onClose={() => setOpenE(false)}
+      />
       {user &&
       (user.role == "MANAGER" || user.role == "BRAND") &&
       (data.authorId == user.id || user.role == "MANAGER") ? (
         <div className="flex flex-row gap-2 justify-start items-center">
           {/* sm:flex-row  */}
           {/*  <Link href={`/media-channels/${data.id}`}> */}
-          <div onClick={() => setOpenE(true)} className="cursor-pointer ">
+          <div
+            onClick={() => setOpenE(true)}
+            className="cursor-pointer rounded-full bg-white p-1 "
+          >
             <svg
               width="21"
               height="20"
@@ -131,7 +139,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             </svg>
           </div>
           {/*  </Link> */}
-          <div className="cursor-pointer " onClick={() => setOpen(true)}>
+          <div
+            className="cursor-pointer rounded-full bg-white p-1"
+            onClick={() => setOpen(true)}
+          >
             <svg
               width="17"
               height="19"

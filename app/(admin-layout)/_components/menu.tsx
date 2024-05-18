@@ -54,53 +54,58 @@ export const Menu = () => {
         {userRole(user?.role || "")}
       </Link>
 
-      {user?.role == "MANAGER" && <></>}
-      <Link
-        href="/users"
-        className={
-          "flex flex-row items-center  py-1 px-3 bg-white rounded-lg w-full hover:bg-accent " +
-          (pathname === "/users" ? " text-black    " : " text-gray-text")
-        }
-      >
-        <div
-          className={
-            "flex items-center justify-center w-[30px] h-[24px] rounded-lg mr-2 " +
-            (pathname === "/users" ? " bg-blue-icon-bg " : " ")
-          }
-        >
-          <svg
+      {user?.role == "MANAGER" && (
+        <>
+          <Link
+            href="/users"
             className={
-              "pb-[2px] pr-[2px] " +
-              (pathname === "/users" ? "  stroke-black" : "  stroke-gray-icon")
+              "flex flex-row items-center  py-1 px-3 bg-white rounded-lg w-full hover:bg-accent " +
+              (pathname === "/users" ? " text-black    " : " text-gray-text")
             }
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
           >
-            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-            <g
-              id="SVGRepo_tracerCarrier"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            ></g>
-            <g id="SVGRepo_iconCarrier">
-              <g id="User / Users">
-                <path
-                  id="Vector"
-                  d="M21 19.9999C21 18.2583 19.3304 16.7767 17 16.2275M15 20C15 17.7909 12.3137 16 9 16C5.68629 16 3 17.7909 3 20M15 13C17.2091 13 19 11.2091 19 9C19 6.79086 17.2091 5 15 5M9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9C13 11.2091 11.2091 13 9 13Z"
-                  /* stroke={pathname === "/users" ? " black    " : "#A3AED0"} */
-                  strokeWidth="2"
+            <div
+              className={
+                "flex items-center justify-center w-[30px] h-[24px] rounded-lg mr-2 " +
+                (pathname === "/users" ? " bg-blue-icon-bg " : " ")
+              }
+            >
+              <svg
+                className={
+                  "pb-[2px] pr-[2px] " +
+                  (pathname === "/users"
+                    ? "  stroke-black"
+                    : "  stroke-gray-icon")
+                }
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                ></path>
-              </g>
-            </g>
-          </svg>
-        </div>
-        Користувачі
-      </Link>
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <g id="User / Users">
+                    <path
+                      id="Vector"
+                      d="M21 19.9999C21 18.2583 19.3304 16.7767 17 16.2275M15 20C15 17.7909 12.3137 16 9 16C5.68629 16 3 17.7909 3 20M15 13C17.2091 13 19 11.2091 19 9C19 6.79086 17.2091 5 15 5M9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9C13 11.2091 11.2091 13 9 13Z"
+                      /* stroke={pathname === "/users" ? " black    " : "#A3AED0"} */
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            Користувачі
+          </Link>
+        </>
+      )}
 
       {user?.role == "BRAND" && (
         <Link

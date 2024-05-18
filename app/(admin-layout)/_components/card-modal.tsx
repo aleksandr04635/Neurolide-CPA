@@ -71,10 +71,10 @@ export const CardModal: React.FC<CardModalProps> = ({ isOpen, onClose }) => {
     return null;
   } */
 
-  const watchAllFields = form.watch();
+  /* const watchAllFields = form.watch();
   useEffect(() => {
     console.log("watchAllFields from CradModal: ", watchAllFields);
-  }, [watchAllFields]);
+  }, [watchAllFields]); */
 
   const onSubmit = (values: z.infer<typeof CardSchema>) => {
     console.log("values from  CardModal: ", values);

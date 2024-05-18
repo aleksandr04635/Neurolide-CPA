@@ -25,6 +25,30 @@ export const createMediaChannel = async (data: MediaChannelFormValues) => {
     }
     const MediaChannel = MediaChannelSchema.parse(data);
     console.log("MediaChannel from createMediaChannel: ", MediaChannel);
+
+    let domain = "";
+    try {
+      const matches = data.link.match(
+        /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/im
+      );
+      // console.log("MATCHES", matches);
+      if (matches && matches.length > 0) {
+        domain = matches[1];
+      }
+    } catch (error) {}
+    console.log("domain from createMediaChannel: ", domain);
+    if (!domain || domain == data.link) {
+      return { error: "Некоректне посилання" };
+    }
+
+    if (
+      // data.userId != user.id &&
+      (data.isVIP == true || data.isVerified == true) &&
+      dbUser.role != "MANAGER"
+    ) {
+      return { error: "Ви не можете підвищити привілегію цього медіа канала" };
+    }
+
     const mediaChannelCr = await db.mediaChannel.create({
       data: { ...MediaChannel },
     });

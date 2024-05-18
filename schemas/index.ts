@@ -164,6 +164,9 @@ export const MediaChannelSchema = z.object({
     .number()
     .nonnegative()
     .refine((x) => x * 100 - Math.trunc(x * 100) < Number.EPSILON), //.multipleOf(0.01)
+  link: z.string().min(4),
+  isVerified: z.optional(z.boolean()),
+  isVIP: z.optional(z.boolean()),
 });
 
 export const CardSchema = z.object({

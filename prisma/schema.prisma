@@ -86,17 +86,22 @@ model PasswordResetToken {
 }
 
 model MediaChannel {
-  id          Int      @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Restrict)
+  user        User    @relation(fields: [userId], references: [id], onDelete: Restrict)
   name        String
   description String
-  image       String   @default("https://res.cloudinary.com/dqwdfhxgl/image/upload/v1715202692/contacts/pev2vhl2tdnfobk6nd74.png")
+  image       String  @default("https://res.cloudinary.com/dqwdfhxgl/image/upload/v1715202692/contacts/pev2vhl2tdnfobk6nd74.png")
   subscribers Int
   views       Int
   price       Decimal
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+
+  link       String  @default("")
+  isVIP      Boolean @default(false)
+  isVerified Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
 }
@@ -122,11 +127,15 @@ model Offer {
 
   usersWhoAccepted User[] @relation("OffersAcceptedByUser")
 
-  //isPaid    Boolean  @default(false)//?
-  name      String
-  brand     String
-  price     Decimal  @default(0)
-  balance   Decimal  @default(0)
+  name    String
+  brand   String
+  price   Decimal @default(0)
+  balance Decimal @default(0)
+
+  link       String  @default("")
+  isVIP      Boolean @default(false)
+  isVerified Boolean @default(false)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
