@@ -205,6 +205,9 @@ export const OfferSchema = z.object({
     .number()
     .nonnegative()
     .refine((x) => x * 100 - Math.trunc(x * 100) < Number.EPSILON),
+  link: z.string().min(4),
+  isVerified: z.optional(z.boolean()),
+  isVIP: z.optional(z.boolean()),
 });
 
 /* name      String

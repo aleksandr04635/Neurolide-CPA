@@ -62,16 +62,17 @@ export function DataTable<TData, TValue>({
   });
 
   // placeholder="🔍&#xF002; Search3"
+  //font-semibold
   return (
     <div>
-      <div className="flex flex-col md:flex-row items-start md:items-start  md:justify-between mb-2 gap-2 ">
-        <div className=" bg-white text-xl py-2 px-6 rounded-lg font-semibold ">
+      <div className="flex flex-col md:flex-row items-start md:items-center  md:justify-between mb-2 gap-2 ">
+        <div className=" bg-white text-lg py-2 px-6 rounded-lg  ">
           {headerText.split(" ").join("\u00A0")}
         </div>
         <div className="flex flex-row justify-between md:justify-center w-full md:w-fit items-center gap-2">
           <div className="relative">
             <Input
-              placeholder="Search"
+              placeholder="Пошук"
               value={
                 (table.getColumn(searchKey)?.getFilterValue() as string) ?? ""
               }

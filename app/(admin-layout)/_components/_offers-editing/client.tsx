@@ -15,9 +15,10 @@ import { DataTableOffersBrand } from "./data-table-offers";
 
 interface OffersClientProps {
   data: OfferColumns[];
+  text?: string;
 }
 
-export const OffersClient: React.FC<OffersClientProps> = ({ data }) => {
+export const OffersClient: React.FC<OffersClientProps> = ({ data, text }) => {
   const params = useParams();
   const router = useRouter();
 
@@ -27,7 +28,7 @@ export const OffersClient: React.FC<OffersClientProps> = ({ data }) => {
         searchKey="name"
         columns={columns}
         data={data}
-        headerText={`Офери: ${data.length}`}
+        headerText={`${text || "Офери"}: ${data.length}`}
       />
     </>
   );

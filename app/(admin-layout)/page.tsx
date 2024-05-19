@@ -8,14 +8,25 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 //import UserInfo from "./_components/user-info";
 import UserInfo from "./_components/user-info-server";
+import OffersInWorkList from "./_components/_offers-editing/offers-accepted-by-me";
+import OffersCreatedByMeAndAccepted from "./_components/_offers-editing/offers-created-by-me-and-accepted";
 type Props = {};
 
 // async
-const MainPage = (props: Props) => {
+const MainPage = async (props: Props) => {
   //const user = useCurrentUser();
+  const user = await currentUser();
   //console.log("user form  MainPage: ", user);
 
-  return <UserInfo />;
+  return (
+    <div className="flex flex-col gap-3 w-full">
+      <UserInfo />
+      {user?.role == "AFFILIATE" && <OffersInWorkList />}
+      {(user?.role == "BRAND" || user?.role == "MANAGER") && (
+        <OffersCreatedByMeAndAccepted />
+      )}
+    </div>
+  );
 };
 
 export default MainPage;

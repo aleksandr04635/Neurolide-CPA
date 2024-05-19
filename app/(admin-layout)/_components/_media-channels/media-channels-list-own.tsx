@@ -8,7 +8,6 @@ import { MediaChannelsClient } from "./client";
 import { MediaChannelColumn } from "./columns";
 import { currentUser } from "@/lib/auth";
 import { Card, CardContent } from "@/components/ui/card";
-import { MediaChannelsClientOwn } from "./client-own";
 
 interface MediaChannelsListProps {}
 
@@ -54,7 +53,10 @@ export const MediaChannelsListOwn: React.FC<
   return (
     <Card className=" w-full my-2  mx-auto border-0 shadow-none bg-inherit  ">
       <CardContent className="px-0">
-        <MediaChannelsClientOwn data={formattedMediaChannels} />
+        <MediaChannelsClient
+          text="Мої медіа канали"
+          data={formattedMediaChannels}
+        />
       </CardContent>
     </Card>
   );

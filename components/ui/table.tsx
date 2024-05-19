@@ -2,15 +2,17 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+//overflow-auto
+//overflow-x-auto overflow-y-visible
 const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
 >(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto">
+  <div className="relative w-full  ">
     <table
       ref={ref}
       className={cn(
-        " border-separate border-spacing-y-2 border-spacing-x-0 w-full caption-bottom text-sm " +
+        " border-separate border-spacing-y-2 border-spacing-x-0 w-full caption-bottom text-sm   overflow-y-visible " +
           " ",
         className
       )}

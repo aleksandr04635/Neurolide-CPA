@@ -15,10 +15,12 @@ import { DataTableMediaChannels } from "./data-table-media-channels";
 
 interface MediaChannelsClientProps {
   data: MediaChannelColumn[];
+  text?: string;
 }
 
 export const MediaChannelsClient: React.FC<MediaChannelsClientProps> = ({
   data,
+  text,
 }) => {
   const params = useParams();
   const router = useRouter();
@@ -42,7 +44,7 @@ export const MediaChannelsClient: React.FC<MediaChannelsClientProps> = ({
         searchKey="name"
         columns={columns}
         data={data}
-        headerText={`Медіа канали: ${data.length}`}
+        headerText={`${text || "Медіа канали"}: ${data.length}`}
       />
     </>
   );

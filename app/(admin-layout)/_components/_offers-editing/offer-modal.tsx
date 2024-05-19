@@ -32,22 +32,24 @@ import { getOffer } from "@/actions/offer/getOffer";
 import { Offer } from "@prisma/client";
 import { editOffer } from "@/actions/offer/editOffer";
 import CurrencyInput from "../../../../components/currency-input";
+import { OfferColumns } from "./columns";
+import { Switch } from "@/components/ui/switch";
 
 interface OfferModalProps {
   isOpen: boolean;
   onClose: () => void;
-  id?: number;
+  data?: OfferColumns;
 }
 
 export const OfferModal: React.FC<OfferModalProps> = ({
   isOpen,
   onClose,
-  id,
+  data,
 }) => {
   const router = useRouter();
   const user = useCurrentUser();
   //console.log("user form  OfferModal: ", user);
-  //console.log("id form  OfferModal: ", id);
+  console.log("data form  OfferModal: ", data);
   // const [initOffer, setInitOffer] = useState<Offer | undefined>();
 
   const [error, setError] = useState<string | undefined>();
@@ -55,7 +57,7 @@ export const OfferModal: React.FC<OfferModalProps> = ({
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (isOpen && id && !isNaN(id)) {
       console.log("getOffer run in OfferModal: ", id);
       startTransition(() => {
@@ -92,7 +94,7 @@ export const OfferModal: React.FC<OfferModalProps> = ({
           );
       });
     }
-  }, [isOpen, id]);
+  }, [isOpen, id]); */
 
   // console.log("initOffer BEFORE form in OfferModal: ", initOffer);
   const form = useForm<z.infer<typeof OfferSchema>>({
@@ -103,13 +105,25 @@ export const OfferModal: React.FC<OfferModalProps> = ({
       brand: initOffer?.brand || "",
       price: (initOffer?.price as unknown as number) || undefined,
       balance: (initOffer?.balance as unknown as number) || undefined, */
-      authorId: user?.id,
-      name: "",
-      brand: "",
-      price: undefined,
-      balance: undefined,
+      authorId: data?.authorId || user?.id,
+      name: data?.name || "",
+      brand: data?.brand || "",
+      link: data?.link || "",
+      price: data?.price || undefined,
+      balance: data?.balance || undefined,
+      isVIP: data?.isVIP || undefined,
+      isVerified: data?.isVerified || undefined,
     },
   });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = form;
+  useEffect(() => {
+    console.log("errors from MediaChannelForm: ", errors);
+  }, [errors]);
 
   /*  useEffect(() => {
     console.log("reset run in OfferModal: ", id, initOffer, form);
@@ -136,8 +150,8 @@ export const OfferModal: React.FC<OfferModalProps> = ({
     console.log("values from  OfferModal: ", values);
 
     startTransition(() => {
-      id
-        ? editOffer({ ...values, id: id })
+      data
+        ? editOffer({ ...values, id: data.id })
             .then((data) => {
               if (data.error) {
                 setSuccess(undefined);
@@ -149,9 +163,9 @@ export const OfferModal: React.FC<OfferModalProps> = ({
                 //setSuccess("Updated a media channel " + data.success);
                 console.log("data.success: ", data.success);
                 router.refresh();
-                toast.success("Offer was updated");
+                toast.success("Офер було оновлено");
                 setSuccess(undefined);
-                form.reset();
+                //form.reset();
                 onClose();
                 // router.push("/media-channels");
               }
@@ -169,9 +183,9 @@ export const OfferModal: React.FC<OfferModalProps> = ({
                 //setSuccess("Created a offer " + data.success);
                 console.log("data.success: ", data.success);
                 router.refresh();
-                toast.success("Offer was created");
+                toast.success("Офер було створено");
                 setSuccess(undefined);
-                form.reset();
+                //form.reset();
                 onClose();
                 //router.refresh();
                 //router.push("/media-channels");
@@ -183,7 +197,7 @@ export const OfferModal: React.FC<OfferModalProps> = ({
 
   return (
     <Modal
-      title="Create a offer"
+      title={data ? `Редагувати офер` : "Додати новий офер"}
       description=""
       isOpen={isOpen}
       onClose={onClose}
@@ -196,11 +210,28 @@ export const OfferModal: React.FC<OfferModalProps> = ({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Offer name</FormLabel>
+                  <FormLabel>Назва</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder="Offer name"
+                      placeholder="Назва"
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="link"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Посилання</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Посилання"
                       disabled={isPending}
                     />
                   </FormControl>
@@ -213,11 +244,11 @@ export const OfferModal: React.FC<OfferModalProps> = ({
               name="brand"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Brand name</FormLabel>
+                  <FormLabel>Бренд</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder="Brand name"
+                      placeholder="Бренд"
                       disabled={isPending}
                     />
                   </FormControl>
@@ -230,7 +261,7 @@ export const OfferModal: React.FC<OfferModalProps> = ({
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Price</FormLabel>
+                  <FormLabel>Виплати</FormLabel>
                   <FormControl>
                     {/*  <Input
                       {...field}
@@ -253,7 +284,7 @@ export const OfferModal: React.FC<OfferModalProps> = ({
               name="balance"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Balance</FormLabel>
+                  <FormLabel>Баланс</FormLabel>
                   <FormControl>
                     {/*   <Input
                       {...field}
@@ -270,11 +301,64 @@ export const OfferModal: React.FC<OfferModalProps> = ({
                 </FormItem>
               )}
             />
+
+            {user?.role === "MANAGER" && (
+              <div className="flex flex-row items-center justify-between gap-2 w-full">
+                <FormField
+                  control={form.control}
+                  name="isVerified"
+                  render={({ field }) => (
+                    <FormItem
+                      className="flex flex-row items-center justify-between rounded-lg 
+                    border border-gray-200 dark:border-gray-500 p-2 shadow-sm w-full"
+                    >
+                      <div className="space-y-0.5">
+                        <FormLabel>Верифіковано</FormLabel>
+                        {/*  <FormDescription>
+                      Enable two factor authentication for your account
+                    </FormDescription> */}
+                      </div>
+                      <FormControl>
+                        <Switch
+                          disabled={isPending}
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="isVIP"
+                  render={({ field }) => (
+                    <FormItem
+                      className="flex flex-row items-center justify-between rounded-lg 
+                    border border-gray-200 dark:border-gray-500 p-2 shadow-sm w-full"
+                    >
+                      <div className="space-y-0.5">
+                        <FormLabel>VIP статус</FormLabel>
+                        {/*  <FormDescription>
+                      Enable two factor authentication for your account
+                    </FormDescription> */}
+                      </div>
+                      <FormControl>
+                        <Switch
+                          disabled={isPending}
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )}
           </div>
           <FormError message={error} />
           <FormSuccess message={success} />
 
-          <div className="flex flex-row justify-between gap-2 w-full">
+          {/*  <div className="flex flex-row justify-between gap-2 w-full">
             <Button
               size="sm"
               type="button"
@@ -301,6 +385,48 @@ export const OfferModal: React.FC<OfferModalProps> = ({
                 <div className="flex flex-row gap-2 items-center justify-center ">
                   <Plus className="h-4 w-4 mr-2" />
                   <p>Edit</p>
+                </div>
+              )}
+            </Button>
+          </div> */}
+          <div className="flex flex-row justify-between gap-4 w-full">
+            {/* <Button
+              size="sm"
+              onClick={() => setOpen(true)}
+              className=" main-button    "
+            >
+              Додати канал
+            </Button> */}
+            <Button
+              size="sm"
+              type="button"
+              onClick={onClose}
+              className=" gray-button w-full !rounded-full "
+            >
+              <div className="flex   items-center justify-center  pb-1">
+                Відмінити
+              </div>
+            </Button>
+            <Button
+              size="sm"
+              type="submit"
+              disabled={isPending}
+              className=" main-button w-full !rounded-full    
+              flex flex-row items-center justify-center    "
+            >
+              {!data ? (
+                <div className="flex flex-row gap-2 items-center justify-center  ">
+                  <Plus className="h-4 w-4  " />
+                  <div className="flex   items-center justify-center pb-1 ">
+                    Додати
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-row gap-2 items-center justify-center  ">
+                  {/* <Plus className="h-4 w-4 mr-2 pt-1" /> */}
+                  <div className="flex   items-center justify-center pb-1 ">
+                    Редагувати
+                  </div>
                 </div>
               )}
             </Button>

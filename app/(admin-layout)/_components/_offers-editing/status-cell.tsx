@@ -7,18 +7,17 @@ import { toast } from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
 
-import { MediaChannelColumn } from "./columns";
+import { OfferColumns } from "./columns";
 import { AlertModal } from "@/components/ui/alert-modal";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import Link from "next/link";
 import MyButton from "@/components/ui/my-button";
-import { deleteMediaChannel } from "@/actions/media-channel/deleteMediaChannel";
-import { MediaChannelModal } from "./media-channel-modal";
 import Tooltip from "@/components/ui/Tooltip";
-//import { deleteMediaChannel } from "@/actions/mediaChannel/deleteMediaChannel";
+
+//import { deleteOffer } from "@/actions/offer/deleteOffer";
 
 interface StatusCellProps {
-  data: MediaChannelColumn;
+  data: OfferColumns;
 }
 
 export const StatusCell: React.FC<StatusCellProps> = ({ data }) => {
@@ -36,7 +35,7 @@ export const StatusCell: React.FC<StatusCellProps> = ({ data }) => {
   /* const onConfirm = () => {
     setOpen(false);
     startTransition(() => {
-      deleteMediaChannel(data.id)
+      deleteOffer(data.id)
         .then((data) => {
           if (data.error) {
             toast.error(
@@ -57,7 +56,8 @@ export const StatusCell: React.FC<StatusCellProps> = ({ data }) => {
   return (
     <div className="flex flex-row space-x-4 items-center justify-start">
       {/* {data.isVerified.toString()} */}
-      {(data.userId == user?.id || user?.role == "MANAGER") && (
+      {((data.authorId == user?.id && user?.role == "BRAND") ||
+        user?.role == "MANAGER") && (
         <div className="">
           {data.isVerified == true && (
             <Tooltip message="Верифіковано">

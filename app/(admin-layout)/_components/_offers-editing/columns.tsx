@@ -8,6 +8,7 @@ import { CellAction } from "./cell-action";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
+import { StatusCell } from "./status-cell";
 
 export type OfferColumns = {
   id: number;
@@ -18,6 +19,9 @@ export type OfferColumns = {
   balance: number;
   createdAt: string;
   accepted?: boolean;
+  link: string;
+  isVerified: boolean;
+  isVIP: boolean;
 };
 /*  id: item.id,
     name: item.name,
@@ -35,7 +39,7 @@ export const columns: ColumnDef<OfferColumns>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hover:bg-white space-x-2 pl-1 pr-0 "
+          className=" space-x-2 pl-1 pr-0 "
         >
           <p className="text-base font-semibold">Id</p>
           {column.getIsSorted() === "asc" ? (
@@ -58,9 +62,9 @@ export const columns: ColumnDef<OfferColumns>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hover:bg-white space-x-2 pl-1 pr-0 "
+          className=" space-x-2 pl-1 pr-0 "
         >
-          <p className="text-base font-semibold">Name</p>
+          <p className="text-base font-semibold">Назва</p>
 
           {column.getIsSorted() === "asc" ? (
             <IoIosArrowDown />
@@ -78,15 +82,58 @@ export const columns: ColumnDef<OfferColumns>[] = [
     ),
   },
   {
+    accessorKey: "link",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className=" space-x-2 pl-1 pr-0 "
+        >
+          <p className="text-base font-semibold">Посилання</p>
+
+          {column.getIsSorted() === "asc" ? (
+            <IoIosArrowDown />
+          ) : (
+            <IoIosArrowUp />
+          )}
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      let domain = "";
+      let domain2 = "";
+      try {
+        const url = new URL(row.original.link);
+        domain = url.hostname;
+        const matches = row.original.link.match(
+          /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/im
+        );
+        //console.log("MATCHES", matches);
+        if (matches && matches.length > 0) {
+          domain2 = matches[1];
+        }
+      } catch (error) {}
+      return (
+        //link-stand !hover:text-white
+        <div className="flex flex-col items-start ">
+          <a href={row.original.link} className="">
+            <div className=" text-sm hover:text-orange-300">{domain2}</div>
+          </a>
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "brand",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hover:bg-white space-x-2 pl-1 pr-0 "
+          className=" space-x-2 pl-1 pr-0 "
         >
-          <p className="text-base font-semibold">Brand</p>
+          <p className="text-base font-semibold">Бренд</p>
 
           {column.getIsSorted() === "asc" ? (
             <IoIosArrowDown />
@@ -115,9 +162,9 @@ export const columns: ColumnDef<OfferColumns>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hover:bg-white space-x-2 pl-0 pr-0 "
+          className=" space-x-2 pl-0 pr-0 "
         >
-          <p className="text-base font-semibold">Price</p>
+          <p className="text-base font-semibold">Виплати</p>
 
           {column.getIsSorted() === "asc" ? (
             <IoIosArrowDown />
@@ -140,9 +187,9 @@ export const columns: ColumnDef<OfferColumns>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hover:bg-white space-x-2 pl-0 pr-0 "
+          className=" space-x-2 pl-0 pr-0 "
         >
-          <p className="text-base font-semibold">Balance</p>
+          <p className="text-base font-semibold">Баланс</p>
 
           {column.getIsSorted() === "asc" ? (
             <IoIosArrowDown />
@@ -158,6 +205,27 @@ export const columns: ColumnDef<OfferColumns>[] = [
       </div>
     ),
   },
+  {
+    id: "isVerified",
+    accessorKey: "isVerified",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className=" space-x-2 pl-1"
+        >
+          <p>Статус </p>
+          {column.getIsSorted() === "asc" ? (
+            <IoIosArrowDown />
+          ) : (
+            <IoIosArrowUp />
+          )}
+        </Button>
+      );
+    },
+    cell: ({ row }) => <StatusCell data={row.original} />,
+  },
   /*   {
     header: "Images",
     accessorKey: "imagesNumber",
@@ -167,7 +235,7 @@ export const columns: ColumnDef<OfferColumns>[] = [
 
   {
     id: "actions",
-    header: "Actions",
+    header: "Дії",
     cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];

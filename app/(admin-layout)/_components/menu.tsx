@@ -107,7 +107,7 @@ export const Menu = () => {
         </>
       )}
 
-      {user?.role == "BRAND" && (
+      {(user?.role == "BRAND" || user?.role == "MANAGER") && (
         <Link
           href="/created-offers"
           className={

@@ -68,7 +68,7 @@ export function DataTableMediaChannels<TData, TValue>({
   return (
     <div>
       <MediaChannelModal isOpen={open} onClose={() => setOpen(false)} />
-      <div className="flex flex-col md:flex-row items-start md:items-start  md:justify-between mb-2 gap-2 ">
+      <div className="flex flex-col md:flex-row items-start md:items-center  md:justify-between mb-2 gap-2 ">
         <div className=" bg-white text-lg py-2 px-6 rounded-lg  ">
           {/* font-semibold */}
           {headerText.split(" ").join("\u00A0")}
@@ -76,7 +76,7 @@ export function DataTableMediaChannels<TData, TValue>({
         <div className="flex flex-row justify-between md:justify-center w-full md:w-fit items-center gap-2">
           <div className="relative">
             <Input
-              placeholder="Search"
+              placeholder="Пошук"
               value={
                 (table.getColumn(searchKey)?.getFilterValue() as string) ?? ""
               }

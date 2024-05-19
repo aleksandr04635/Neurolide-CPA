@@ -47,6 +47,21 @@ export const editOffer = async (data: OfferFormValues) => {
     }
     console.log("offerDB from editOffer: ", offerDB);
 
+    let domain = "";
+    try {
+      const matches = data.link.match(
+        /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/im
+      );
+      // console.log("MATCHES", matches);
+      if (matches && matches.length > 0) {
+        domain = matches[1];
+      }
+    } catch (error) {}
+    console.log("domain from createMediaChannel: ", domain);
+    if (!domain || domain == data.link) {
+      return { error: "Некоректне посилання" };
+    }
+
     if (
       data.authorId != user.id &&
       offerDB.authorId != user.id &&

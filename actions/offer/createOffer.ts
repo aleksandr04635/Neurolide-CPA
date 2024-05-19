@@ -25,6 +25,22 @@ export const createOffer = async (data: OfferFormValues) => {
     }
     const Offer = OfferSchema.parse(data);
     console.log("Offer from createOffer: ", Offer);
+
+    let domain = "";
+    try {
+      const matches = data.link.match(
+        /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/im
+      );
+      // console.log("MATCHES", matches);
+      if (matches && matches.length > 0) {
+        domain = matches[1];
+      }
+    } catch (error) {}
+    console.log("domain from createMediaChannel: ", domain);
+    if (!domain || domain == data.link) {
+      return { error: "Некоректне посилання" };
+    }
+
     const offerCr = await db.offer.create({
       data: { ...Offer },
     });
