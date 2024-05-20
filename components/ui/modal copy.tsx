@@ -16,8 +16,6 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children?: React.ReactNode;
-  //new
-  imageUploaderIsOpen?: boolean;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -26,8 +24,6 @@ export const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   children,
-
-  imageUploaderIsOpen = false,
 }) => {
   const onChange = (open: boolean) => {
     if (!open) {
@@ -36,10 +32,7 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={onChange} /*  modal={!imageUploaderIsOpen} */
-    >
+    <Dialog open={isOpen} onOpenChange={onChange}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>

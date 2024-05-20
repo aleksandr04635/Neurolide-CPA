@@ -52,7 +52,7 @@ const OffersCreatedByMeAndAccepted = async () => {
     <Card className=" w-full my-2  mx-auto border-0 shadow-none bg-inherit  ">
       <CardContent className="px-0">
         <OffersClient
-          text="Офери,що я створив і хтось прийняв"
+          text="Офери, що я створив і хтось прийняв"
           data={filteredOffers}
         />
       </CardContent>

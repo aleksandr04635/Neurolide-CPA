@@ -215,7 +215,7 @@ export const columns: ColumnDef<OfferColumns>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className=" space-x-2 pl-1"
         >
-          <p>Статус </p>
+          <p className="text-base font-semibold">Статус </p>
           {column.getIsSorted() === "asc" ? (
             <IoIosArrowDown />
           ) : (

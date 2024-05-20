@@ -72,10 +72,10 @@ const SettingsClientInter = ({ fullUser }: Props) => {
     },
   });
 
-  const watchAllFields = form.watch();
+  /*   const watchAllFields = form.watch();
   useEffect(() => {
-    console.log("watchAllFields from ProductForm: ", watchAllFields);
-  }, [watchAllFields]);
+    console.log("watchAllFields from SettingsForm: ", watchAllFields);
+  }, [watchAllFields]); */
 
   const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
     startTransition(() => {

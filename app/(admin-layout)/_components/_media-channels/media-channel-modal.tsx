@@ -44,6 +44,8 @@ interface MediaChannelModalProps {
   onClose: () => void;
   id?: number;
   data?: MediaChannelColumn;
+
+  setOpen: (value: boolean) => void;
 }
 
 export const MediaChannelModal: React.FC<MediaChannelModalProps> = ({
@@ -51,6 +53,8 @@ export const MediaChannelModal: React.FC<MediaChannelModalProps> = ({
   onClose,
   id,
   data,
+
+  setOpen,
 }) => {
   const router = useRouter();
   const user = useCurrentUser();
@@ -61,7 +65,14 @@ export const MediaChannelModal: React.FC<MediaChannelModalProps> = ({
 
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
-  const [open, setOpen] = useState(false);
+
+  const [imageUploaderIsOpen, setImageUploaderIsOpen] = useState(false);
+  console.log(
+    "imageUploaderIsOpen form  MediaChannelModal: ",
+    imageUploaderIsOpen
+  );
+
+  //const [open, setOpen] = useState(false);
 
   const [isPending, startTransition] = useTransition();
 
@@ -215,10 +226,12 @@ export const MediaChannelModal: React.FC<MediaChannelModalProps> = ({
       description=""
       isOpen={isOpen}
       onClose={onClose}
+      imageUploaderIsOpen={imageUploaderIsOpen}
     >
       <Form {...form}>
         <form className="space-y-5 " onSubmit={form.handleSubmit(onSubmit)}>
           <div className="space-y-2 ">
+            {imageUploaderIsOpen && <div className="h-[180px]"></div>}
             <FormField
               control={form.control}
               name="image"
@@ -231,6 +244,11 @@ export const MediaChannelModal: React.FC<MediaChannelModalProps> = ({
                         disabled={isPending}
                         onChange={(url) => field.onChange(url)}
                         onRemove={() => field.onChange("")}
+                        setOpen={(state) => setOpen(state)}
+                        imageUploaderIsOpen={imageUploaderIsOpen}
+                        setImageUploaderIsOpen={(state) =>
+                          setImageUploaderIsOpen(state)
+                        }
                       />
                     </FormControl>
                     <FormLabel>
@@ -258,163 +276,171 @@ export const MediaChannelModal: React.FC<MediaChannelModalProps> = ({
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Короткий опис</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Короткий опис"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="link"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Посилання</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Посилання"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {!imageUploaderIsOpen && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Короткий опис</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Короткий опис"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="link"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Посилання</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Посилання"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            <div className="flex flex-row items-center justify-between gap-2 w-full">
-              <FormField
-                control={form.control}
-                name="subscribers"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Підписники</FormLabel>
-                    <FormControl>
-                      {/* <Input
+                <div className="flex flex-row items-center justify-between gap-2 w-full">
+                  <FormField
+                    control={form.control}
+                    name="subscribers"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Підписники</FormLabel>
+                        <FormControl>
+                          {/* <Input
                           {...field}
                           placeholder="1000"
                           type="text"
                           disabled={isPending}
                         /> */}
-                      <NumberInput
-                        disabled={isPending}
-                        value={field.value}
-                        onValueChange={(value: any) => field.onChange(value)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="views"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Перегляди</FormLabel>
-                    <FormControl>
-                      {/*  <Input
+                          <NumberInput
+                            disabled={isPending}
+                            value={field.value}
+                            onValueChange={(value: any) =>
+                              field.onChange(value)
+                            }
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="views"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Перегляди</FormLabel>
+                        <FormControl>
+                          {/*  <Input
                           {...field}
                           placeholder="10000"
                           disabled={isPending}
                         /> */}
-                      <NumberInput
-                        disabled={isPending}
-                        value={field.value}
-                        onValueChange={(value: any) => field.onChange(value)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+                          <NumberInput
+                            disabled={isPending}
+                            value={field.value}
+                            onValueChange={(value: any) =>
+                              field.onChange(value)
+                            }
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-            <FormField
-              control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ціна</FormLabel>
-                  <FormControl>
-                    {/*  <Input
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Ціна</FormLabel>
+                      <FormControl>
+                        {/*  <Input
                           {...field}
                           placeholder="100.00"
                           disabled={isPending}
                         /> */}
-                    <CurrencyInput
-                      disabled={isPending}
-                      value={field.value}
-                      onValueChange={(value) => field.onChange(value)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                        <CurrencyInput
+                          disabled={isPending}
+                          value={field.value}
+                          onValueChange={(value) => field.onChange(value)}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            {user?.role === "MANAGER" && (
-              <div className="flex flex-row items-center justify-between gap-2 w-full">
-                <FormField
-                  control={form.control}
-                  name="isVerified"
-                  render={({ field }) => (
-                    <FormItem
-                      className="flex flex-row items-center justify-between rounded-lg 
+                {user?.role === "MANAGER" && (
+                  <div className="flex flex-row items-center justify-between gap-2 w-full">
+                    <FormField
+                      control={form.control}
+                      name="isVerified"
+                      render={({ field }) => (
+                        <FormItem
+                          className="flex flex-row items-center justify-between rounded-lg 
                     border border-gray-200 dark:border-gray-500 p-2 shadow-sm w-full"
-                    >
-                      <div className="space-y-0.5">
-                        <FormLabel>Верифіковано</FormLabel>
-                        {/*  <FormDescription>
+                        >
+                          <div className="space-y-0.5">
+                            <FormLabel>Верифіковано</FormLabel>
+                            {/*  <FormDescription>
                       Enable two factor authentication for your account
                     </FormDescription> */}
-                      </div>
-                      <FormControl>
-                        <Switch
-                          disabled={isPending}
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="isVIP"
-                  render={({ field }) => (
-                    <FormItem
-                      className="flex flex-row items-center justify-between rounded-lg 
+                          </div>
+                          <FormControl>
+                            <Switch
+                              disabled={isPending}
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="isVIP"
+                      render={({ field }) => (
+                        <FormItem
+                          className="flex flex-row items-center justify-between rounded-lg 
                     border border-gray-200 dark:border-gray-500 p-2 shadow-sm w-full"
-                    >
-                      <div className="space-y-0.5">
-                        <FormLabel>VIP статус</FormLabel>
-                        {/*  <FormDescription>
+                        >
+                          <div className="space-y-0.5">
+                            <FormLabel>VIP статус</FormLabel>
+                            {/*  <FormDescription>
                       Enable two factor authentication for your account
                     </FormDescription> */}
-                      </div>
-                      <FormControl>
-                        <Switch
-                          disabled={isPending}
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
+                          </div>
+                          <FormControl>
+                            <Switch
+                              disabled={isPending}
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                )}
+              </>
             )}
           </div>
           <FormError message={error} />

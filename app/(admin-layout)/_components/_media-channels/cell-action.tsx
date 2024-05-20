@@ -63,6 +63,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         loading={loading}
       />
       <MediaChannelModal
+        setOpen={(state) => setOpen(state)}
         key={data.id}
         /*  id={`UserModal${data.id}`} */
         data={data}

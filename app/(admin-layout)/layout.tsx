@@ -19,7 +19,7 @@ const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
       <Sidebar />
       <div
         className=" bg-gray-bg w-full  min-h-full pb-2 pl-[8px] pt-[8px] pr-[21px]
-       md:pl-[22px] md:pt-[12px] md:pr-[30px] flex flex-col items-center justify-start gap-3"
+       md:pl-[14px] md:pt-[8px] md:pr-[24px] flex flex-col items-center justify-start gap-2"
       >
         <DataPanel />
         {/*  <div className="w-full flex items-center justify-between gap-2">

@@ -46,6 +46,7 @@ model User {
   cards          Card[]
   offersAccepted Offer[]        @relation("OffersAcceptedByUser")
   offersCreated  Offer[]        @relation("OffersCreatedByUser")
+  feedbacks      Feedback[]
 }
 
 model Account {
@@ -140,4 +141,18 @@ model Offer {
   updatedAt DateTime @updatedAt
 
   @@index([authorId])
+}
+
+model Feedback {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Restrict)
+  name      String
+  message   String
+  file      String?
+  email     String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }

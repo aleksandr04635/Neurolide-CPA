@@ -67,7 +67,11 @@ export function DataTableMediaChannels<TData, TValue>({
   // placeholder="🔍&#xF002; Search3"
   return (
     <div>
-      <MediaChannelModal isOpen={open} onClose={() => setOpen(false)} />
+      <MediaChannelModal
+        setOpen={(state) => setOpen(state)}
+        isOpen={open}
+        onClose={() => setOpen(false)}
+      />
       <div className="flex flex-col md:flex-row items-start md:items-center  md:justify-between mb-2 gap-2 ">
         <div className=" bg-white text-lg py-2 px-6 rounded-lg  ">
           {/* font-semibold */}

@@ -22,7 +22,7 @@ interface StatusCellProps {
 }
 
 export const StatusCell: React.FC<StatusCellProps> = ({ data }) => {
-  console.log("data from media-channels StatusCell:", data);
+  //console.log("data from media-channels StatusCell:", data);
   const user = useCurrentUser();
   // console.log("user form  CellAction: ", user);
 

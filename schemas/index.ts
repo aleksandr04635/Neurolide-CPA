@@ -210,10 +210,14 @@ export const OfferSchema = z.object({
   isVIP: z.optional(z.boolean()),
 });
 
-/* name      String
-  brand     String
-  price     Decimal
-  balance   Decimal */
+export const FeedbackSchema = z.object({
+  userId: z.string().min(4),
+  file: z.optional(z.string()),
+  name: z.string().min(4),
+  //storeName: z.optional(z.string().min(6)),
+  message: z.string().min(6),
+  email: z.string().email(),
+});
 
 export const NewPasswordSchema = z.object({
   password: z.string().min(6, {
