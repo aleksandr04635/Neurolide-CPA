@@ -191,14 +191,7 @@ const FeedbackForm = ({}: Props) => {
               className=" main-button w-full !rounded-full    
               flex flex-row items-center justify-center    "
             > */}
-              <Button
-                size="sm"
-                type="submit"
-                disabled={isPending}
-                className=" main-button   !rounded-full     "
-              >
-                Відправити
-              </Button>
+
               <FormField
                 control={form.control}
                 name="file"
@@ -219,6 +212,14 @@ const FeedbackForm = ({}: Props) => {
                   </FormItem>
                 )}
               />
+              <Button
+                size="sm"
+                type="submit"
+                disabled={isPending}
+                className=" main-button   !rounded-full     "
+              >
+                Відправити
+              </Button>
             </div>
           </div>
           <FormError message={error} />

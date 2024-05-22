@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { UsersColumn, columns } from "./columns";
 import MyButton from "@/components/ui/my-button";
 import Link from "next/link";
+import { UsersDataTable } from "./users-data-table";
 
 interface UsersClientProps {
   data: UsersColumn[];
@@ -27,7 +28,7 @@ export const UsersClient: React.FC<UsersClientProps> = ({ data }) => {
         <Heading title={`You have ${data.length} users`} description="" />
       </div>
         <Separator />  */}
-      <DataTable
+      <UsersDataTable
         searchKey="name"
         columns={columns}
         data={data}

@@ -67,10 +67,10 @@ export const MediaChannelModal: React.FC<MediaChannelModalProps> = ({
   const [success, setSuccess] = useState<string | undefined>();
 
   const [imageUploaderIsOpen, setImageUploaderIsOpen] = useState(false);
-  console.log(
+  /*   console.log(
     "imageUploaderIsOpen form  MediaChannelModal: ",
     imageUploaderIsOpen
-  );
+  ); */
 
   //const [open, setOpen] = useState(false);
 

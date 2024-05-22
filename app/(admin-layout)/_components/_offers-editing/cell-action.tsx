@@ -258,7 +258,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
                   <path
                     d="M7.38281 7.6123L2.32031 2.5498"
                     stroke="#E84646"
-                    stroke-width="1.25"
+                    strokeWidth="1.25"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
@@ -281,7 +281,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
                 <path
                   d="M7.38281 7.6123L2.32031 2.5498"
                   stroke="#E84646"
-                  stroke-width="1.25"
+                  strokeWidth="1.25"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />

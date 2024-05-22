@@ -20,6 +20,7 @@ const FrontImageUpload: React.FC<FileUploadProps> = ({
   onRemove,
   value,
 }) => {
+  console.log("value from FrontImageUpload", value);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -69,17 +70,20 @@ const FrontImageUpload: React.FC<FileUploadProps> = ({
               onClick={onClose}
               className=" gray-button w-full !rounded-full "
             ></Button> */
-            <Button
-              size="sm"
-              type="button"
-              disabled={disabled}
-              /* variant="secondary" */
-              onClick={onClick}
-              className=" gray-button w-full !rounded-full "
-            >
-              <ImagePlus className="h-4 w-4 mr-2" />
-              Додати файл
-            </Button>
+            <div className="flex flex-row w-fit gap-2">
+              <Button
+                size="sm"
+                type="button"
+                disabled={disabled}
+                /* variant="secondary" */
+                onClick={onClick}
+                className=" gray-button w-full !rounded-full "
+              >
+                <ImagePlus className="h-4 w-4 mr-2" />
+                Додати файл
+              </Button>
+              {value && <div>{value}</div>}
+            </div>
           );
         }}
       </CldUploadWidget>
