@@ -1,6 +1,6 @@
 import React from "react";
 
-import UserInfo from "../_components/user-info-server";
+import UserInfo from "../_components/_user-info/user-info-server";
 import Cards from "../_components/_cards/cards-server";
 import { MediaChannelsListOwn } from "../_components/_media-channels/media-channels-list-own";
 import { currentUser } from "@/lib/auth";

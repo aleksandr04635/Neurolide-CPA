@@ -36,12 +36,12 @@ export const AlertModal: React.FC<AlertModalProps> = ({
       isOpen={isOpen}
       onClose={onClose}
     >
-      <div className="pt-6 space-x-2 flex items-center justify-end w-full">
+      <div className="pt-6 space-x-2 flex items-center justify-between w-full">
         <Button
           size="sm"
           disabled={loading}
           onClick={onClose}
-          className=" main-button        "
+          className=" main-button   !px-5  sm:!px-10   "
         >
           Відмінити
         </Button>
@@ -50,7 +50,7 @@ export const AlertModal: React.FC<AlertModalProps> = ({
           type="button"
           disabled={loading}
           onClick={onConfirm}
-          className=" danger-button       "
+          className=" danger-button   !px-5  sm:!px-10     "
         >
           Продовжити
         </Button>

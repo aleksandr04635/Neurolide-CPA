@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 //import UserInfo from "./_components/user-info";
-import UserInfo from "./_components/user-info-server";
+import UserInfo from "./_components/_user-info/user-info-server";
 import OffersInWorkList from "./_components/_offers-editing/offers-accepted-by-me";
 import OffersCreatedByMeAndAccepted from "./_components/_offers-editing/offers-created-by-me-and-accepted";
 type Props = {};
@@ -21,10 +21,13 @@ const MainPage = async (props: Props) => {
   return (
     <div className="flex flex-col gap-3 w-full">
       <UserInfo />
-      {user?.role == "AFFILIATE" && <OffersInWorkList />}
-      {(user?.role == "BRAND" || user?.role == "MANAGER") && (
-        <OffersCreatedByMeAndAccepted />
-      )}
+
+      <div className="w-full hidden md:block">
+        {user?.role == "AFFILIATE" && <OffersInWorkList />}
+        {(user?.role == "BRAND" || user?.role == "MANAGER") && (
+          <OffersCreatedByMeAndAccepted />
+        )}{" "}
+      </div>
     </div>
   );
 };

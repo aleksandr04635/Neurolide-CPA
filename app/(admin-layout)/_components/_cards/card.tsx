@@ -56,12 +56,12 @@ const CreditCard = ({ card, type }: Props) => {
       />
       <div
         className={
-          " relative group p-0 flex flex-col gap-0 items-center justify-start " +
+          " relative group py-5 px-6 flex flex-col gap-0 items-center justify-between " +
           " max-w-[350px] h-[198px]   rounded-lg text-white bg-gradient-to-br from-[#29205d] via-[#3c418a] to-[#8e80c2] " +
           (type == "wideScr" ? " w-[350px] " : " w-full ")
         }
       >
-        <div className="w-full px-7 pt-7 flex flex-row items-center justify-between">
+        <div className="w-full  flex flex-row items-center justify-between">
           <div className="space-x-2">
             <span>{"$95, 400.00"}</span>
             <span className="text-white/50">USD</span>
@@ -92,8 +92,8 @@ const CreditCard = ({ card, type }: Props) => {
           </div>
         </div>
 
-        <div className="w-full px-7 pt-10 flex flex-row items-center justify-between">
-          <div className="space-x-2 flex flex-row text-xl items-center">
+        <div className="w-full  flex flex-row items-center justify-between">
+          <div className="space-x-2 flex flex-row text-lg items-center">
             <span>{"****"}</span>
             <span>{"****"}</span>
             <span>{"****"}</span>
@@ -131,7 +131,7 @@ const CreditCard = ({ card, type }: Props) => {
           </div>
         </div>
 
-        <div className="w-full px-7 pt-5 flex flex-row items-center justify-between text-sm">
+        <div className="w-full  flex flex-row items-center justify-between text-sm">
           <div className="space-x-2">
             <span>{card?.nameOnCard.toUpperCase()}</span>
           </div>

@@ -5,9 +5,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-//en-US en-ZA fi-FI fr-FR hu-HU ru-RU pl-PL sk-SK
-//not good no-NO
-export const formatter = new Intl.NumberFormat("ru-RU", {
+//en-US fi-FI   ru-RU
+//not good no-NO pl-PL sk-SK hu-HU fr-FR  en-ZA
+export const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });

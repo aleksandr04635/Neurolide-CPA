@@ -1,7 +1,7 @@
 import React from "react";
 import { formatter } from "@/lib/utils";
 import { db } from "@/lib/db";
-import UserInfoClientIner from "./user-info-client-inner";
+
 import { auth } from "@/auth";
 import { UserButton } from "./user-button";
 type Props = {};
@@ -17,7 +17,6 @@ const DataPanel = async (props: Props) => {
   const fullUser = await db.user.findFirst({ where: { id: user?.id } });
   //console.log("fullUser form  DataPanel: ", fullUser);
 
-  // return <UserInfoClientIner fullUser={fullUser} />;
   //xl:w-fit
   //xl:w-[250px]
   return (

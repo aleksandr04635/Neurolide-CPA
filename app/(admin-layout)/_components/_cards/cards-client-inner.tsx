@@ -23,7 +23,7 @@ const CardsClientIner = ({ cards }: Props) => {
 
   return (
     <div
-      className="p-0 pt-1 pb-2 flex flex-col gap-2 items-center justify-center 
+      className="p-0 pt-2 pb-2 flex flex-col gap-2 items-center justify-center 
     w-full h-fit bg-white  rounded-xl relative"
     >
       <CardModal isOpen={open} onClose={() => setOpen(false)} />
@@ -32,7 +32,7 @@ const CardsClientIner = ({ cards }: Props) => {
         <Button
           size="sm"
           type="button"
-          className="md:hidden main-button   !rounded-full     "
+          className="md:hidden main-button   !rounded-full  !text-sm !px-5  "
           /*  !py-1 !px-5 */
           onClick={() => setOpen(true)}
         >
