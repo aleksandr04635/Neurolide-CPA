@@ -28,7 +28,7 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <html lang="en">
         <body className="w-screen overflow-x-hidden ">
-          <div className={` ${inter.className}`}>
+          <div className={`INTER ${inter.className}`}>
             <ToastProvider />
             <div className="  relative w-full flex flex-col    min-h-screen bg-white">
               {children}

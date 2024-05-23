@@ -13,6 +13,7 @@ import { CardSchema } from "@/schemas";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { settings } from "@/actions/settings";
+import { toast } from "react-hot-toast";
 import {
   Form,
   FormField,
@@ -84,12 +85,15 @@ export const CardModal: React.FC<CardModalProps> = ({ isOpen, onClose }) => {
         .then((data) => {
           if (data.error) {
             setSuccess(undefined);
-            setError(data.error);
+            //setError(data.error);
+            toast.error("Помилка " + data.error);
           }
 
           if (data.success) {
             setError(undefined);
-            setSuccess("Created a media channel " + data.success);
+            //setSuccess("Created a media channel " + data.success);
+            // setSuccess("Картку створено " );
+            toast.success("Картку створено");
             console.log("data.success: ", data.success);
             onClose();
             form.reset();
@@ -103,7 +107,7 @@ export const CardModal: React.FC<CardModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <Modal
-      title="Create a card"
+      title="Додати нову карту"
       description=""
       isOpen={isOpen}
       onClose={onClose}
@@ -116,7 +120,7 @@ export const CardModal: React.FC<CardModalProps> = ({ isOpen, onClose }) => {
               name="number"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Card number</FormLabel>
+                  <FormLabel>Номер карти</FormLabel>
                   <FormControl>
                     {/*  <Input
                       {...field}
@@ -158,7 +162,7 @@ export const CardModal: React.FC<CardModalProps> = ({ isOpen, onClose }) => {
               name="nameOnCard"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name on the card</FormLabel>
+                  <FormLabel>І&apos;мя на карті</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -195,7 +199,7 @@ export const CardModal: React.FC<CardModalProps> = ({ isOpen, onClose }) => {
                 name="expirationDate"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Expiration date</FormLabel>
+                    <FormLabel>Дата завершення</FormLabel>
                     <FormControl>
                       {/*   <Input
                         {...field}
@@ -242,9 +246,26 @@ export const CardModal: React.FC<CardModalProps> = ({ isOpen, onClose }) => {
               size="sm"
               type="button"
               onClick={onClose}
+              className=" gray-button w-full !rounded-full !px-5 !py-1 "
+            >
+              Відмінити
+            </Button>
+            <Button
+              size="sm"
+              type="submit"
+              disabled={isPending}
+              className=" main-button   !rounded-full   !px-5 !py-1  "
+            >
+              {/*  <Plus className="h-4 w-4 mr-2" /> */}
+              <p>Додати карту</p>
+            </Button>
+            {/*  <Button
+              size="sm"
+              type="button"
+              onClick={onClose}
               className=" bg-[#F5F6F7] hover:bg-[#e2e4e5] py-5 px-8 text-base font-normal text-black rounded-full "
             >
-              Cancel
+              Відмінити
             </Button>
             <Button
               size="sm"
@@ -256,8 +277,8 @@ export const CardModal: React.FC<CardModalProps> = ({ isOpen, onClose }) => {
               flex flex-row items-center justify-center    "
             >
               <Plus className="h-4 w-4 mr-2" />
-              <p>Create</p>
-            </Button>
+              <p>Додати карту</p>
+            </Button> */}
           </div>
         </form>
       </Form>

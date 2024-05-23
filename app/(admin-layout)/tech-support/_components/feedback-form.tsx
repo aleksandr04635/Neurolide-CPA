@@ -127,7 +127,7 @@ const FeedbackForm = ({}: Props) => {
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <div className="space-y-3 w-full">
-            <div className=" w-full flex flex-row items-center justify-between gap-2">
+            <div className=" w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
               <FormField
                 control={form.control}
                 name="name"
@@ -183,7 +183,7 @@ const FeedbackForm = ({}: Props) => {
               )}
             />
 
-            <div className=" w-full flex flex-row items-center justify-between gap-2">
+            <div className=" w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-2 h-fit ">
               {/* <Button
               size="sm"
               type="submit"

@@ -34,7 +34,7 @@ export const Menu = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={
-              pathname === "/menu" ? " stroke-black" : " stroke-gray-icon"
+              pathname === "/main" ? " stroke-black" : " stroke-gray-icon"
             }
           >
             <g clipPath="url(#clip0_5_7663)">

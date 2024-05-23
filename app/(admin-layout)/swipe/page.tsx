@@ -31,7 +31,7 @@ const Page = (props: Props) => {
     >
       <div className="w-full flex flex-row items-center justify-between z-1 absolute px-2">
         <button
-          className="bg-red-500 text-white px-4 py-2 rounded-lg"
+          className="bg-red-500 text-white p-1 rounded-lg"
           onClick={() =>
             setCurrentIndex(
               (prevIndex) => (prevIndex - 1 + divs.length) % divs.length
@@ -42,7 +42,7 @@ const Page = (props: Props) => {
         </button>
 
         <button
-          className="bg-green-500 text-white px-4 py-2 rounded-lg ml-4"
+          className="bg-green-500 text-white p-1 rounded-lg ml-4"
           onClick={() =>
             setCurrentIndex((prevIndex) => (prevIndex + 1) % divs.length)
           }

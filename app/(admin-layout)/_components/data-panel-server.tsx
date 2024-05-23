@@ -21,11 +21,11 @@ const DataPanel = async (props: Props) => {
   //xl:w-fit
   //xl:w-[250px]
   return (
-    <div className="w-full flex items-center justify-between gap-2">
+    <div className="w-full flex items-center justify-between gap-2 bg-transparent">
       {!fullUser ? (
         <></>
       ) : (
-        <div className=" w-full  flex items-center justify-between gap-2">
+        <div className=" w-full  flex flex-col md:flex-row items-center justify-between gap-2 bg-transparent">
           {fullUser.role == "AFFILIATE" && (
             <>
               <div className="w-full  h-[70px] bg-white rounded-lg flex flex-col overflow-hidden">
@@ -131,9 +131,9 @@ const DataPanel = async (props: Props) => {
         </div>
       )}
 
-      <div className="lg:hidden flex-0 w-[70px] h-[70px] bg-white rounded-lg">
+      {/* <div className="lg:hidden flex-0 w-[70px] h-[70px] bg-white rounded-lg">
         <UserButton />
-      </div>
+      </div> */}
     </div>
   );
 };

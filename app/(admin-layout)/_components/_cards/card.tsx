@@ -14,9 +14,9 @@ import { AlertModal } from "@/components/ui/alert-modal";
 import { deleteCard } from "@/actions/card/deleteCard";
 import { toast } from "react-hot-toast";
 
-type Props = { card: Card | null };
+type Props = { card: Card | null; type: string };
 
-const CreditCard = ({ card }: Props) => {
+const CreditCard = ({ card, type }: Props) => {
   // const user = await currentUser(); //
   const user = useCurrentUser();
   //console.log("user form  UserInfoClientIner: ", user);
@@ -55,8 +55,11 @@ const CreditCard = ({ card }: Props) => {
         loading={isPending}
       />
       <div
-        className="relative group p-0 flex flex-col gap-0 items-center justify-start 
-    w-[350px] h-[198px]   rounded-lg text-white bg-gradient-to-br from-[#29205d] via-[#3c418a] to-[#8e80c2]"
+        className={
+          " relative group p-0 flex flex-col gap-0 items-center justify-start " +
+          " max-w-[350px] h-[198px]   rounded-lg text-white bg-gradient-to-br from-[#29205d] via-[#3c418a] to-[#8e80c2] " +
+          (type == "wideScr" ? " w-[350px] " : " w-full ")
+        }
       >
         <div className="w-full px-7 pt-7 flex flex-row items-center justify-between">
           <div className="space-x-2">

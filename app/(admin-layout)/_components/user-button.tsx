@@ -21,7 +21,7 @@ import Link from "next/link";
 import { Package } from "lucide-react";
 
 import { useEffect, useState } from "react";
-import { Menu } from "./menu";
+import { Menu } from "./_menu/menu";
 
 export const UserButton = () => {
   const user = useCurrentUser();

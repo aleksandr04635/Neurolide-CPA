@@ -1,26 +1,29 @@
 import Image from "next/image";
 import DataPanel from "./_components/data-panel-server";
-import { Sidebar } from "./_components/sidebar";
+import { Sidebar } from "./_components/_menu/sidebar";
 import { UserButton } from "./_components/user-button";
 import Link from "next/link";
-import { MenuButton } from "./_components/menu-button";
+import { MenuButton } from "./_components/_menu/menu-button";
 import Header from "./_components/header";
 
 interface ProtectedLayoutProps {
   children: React.ReactNode;
 }
 
-//h-fit xl:min-h-[calc(100vh_-_130px)] xl:min-h-fit bg-red-500   gap-x-2
+//h-fit xl:min-h-[calc(100vh_-_106px)] xl:min-h-fit bg-red-500   gap-x-2
 //pb-[40px]
 const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
   return (
     <>
+      {/* Mobile-screen */}
       <div className="md:hidden w-full flex flex-col min-h-screen">
         <Header />
-        <div className=" min-h-[calc(100vh_-_106px)]">{children}</div>
+        <div className=" min-h-[calc(100vh_-_142px)] pr-3 bg-gray-bg pt-2 pl-2 pb-2">
+          {children}
+        </div>
         <div
           className="h-[40px] bg-gradient-to-b from-blue-from via-blue-via to-blue-to
-         w-full flex flex-row justify-end items-center px-3"
+         w-full flex flex-row justify-end items-center px-6"
         >
           <Link href="/tech-support">
             <svg
@@ -55,6 +58,7 @@ const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
         </div>
       </div>
 
+      {/* Wide-screen */}
       <div className=" w-full hidden md:flex flex-row gap-x-0 min-h-screen  ">
         <Sidebar />
         <div

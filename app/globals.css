@@ -126,6 +126,10 @@ tr.table-row-class {
 div[data-radix-popper-content-wrapper] {
   /*  right: 0px;
   top: 20px; */
-  /*   @apply w-full rounded-none bg-black/30 h-full !top-[14px]; */
+  @apply w-full rounded-none bg-black/30 h-full !top-[14px];
 }
 /*  top-[10px] */
+div[style*="position:fixed;z-index:9999;top:16px;left:16px;right:16px;bottom:16px;pointer-events:none"] {
+  max-height: 50%;
+  @apply max-h-[400px];
+}

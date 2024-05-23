@@ -87,7 +87,7 @@ export const MenuButton = () => {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator /> */}
-        <DropdownMenuItem>
+        <DropdownMenuItem className=" !bg-transparent hover:!bg-transparent">
           <Menu />
         </DropdownMenuItem>
         {/*  <DropdownMenuSeparator />
@@ -102,4 +102,4 @@ export const MenuButton = () => {
   );
 };
 
-//className=" !bg-transparent hover:!bg-transparent"
+//
