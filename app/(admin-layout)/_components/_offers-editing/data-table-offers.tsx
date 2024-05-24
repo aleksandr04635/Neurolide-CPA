@@ -30,7 +30,7 @@ import { OfferModal } from "./offer-modal";
 
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { DataTablePagination } from "./pagination";
-import SwipeContainer from "../swipe-container";
+import SwipeContainer from "../../../../components/swipe-container";
 import { OfferCard } from "./offer-card";
 
 interface DataTableProps<TData, TValue> {

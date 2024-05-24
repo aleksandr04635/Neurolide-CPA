@@ -29,6 +29,8 @@ import { BsEyeSlash } from "react-icons/bs";
 
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { MediaChannelModal } from "./media-channel-modal";
+import SwipeContainer from "../../../../components/swipe-container";
+import { MediaChannelCard } from "./media-channel-card";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -64,6 +66,10 @@ export function DataTableMediaChannels<TData, TValue>({
 
   const [open, setOpen] = useState(false);
 
+  let mediaChannels = table
+    .getPrePaginationRowModel()
+    .rows.map((row) => row.original);
+
   // placeholder="🔍&#xF002; Search3"
   return (
     <div>
@@ -75,7 +81,8 @@ export function DataTableMediaChannels<TData, TValue>({
       <div className="flex flex-col md:flex-row items-start md:items-center  md:justify-between mb-2 gap-2 ">
         <div className=" bg-white text-lg py-2 px-6 rounded-lg  ">
           {/* font-semibold */}
-          {headerText.split(" ").join("\u00A0")}
+          {/*  {headerText.split(" ").join("\u00A0")} */}
+          {headerText}
         </div>
         <div className="flex flex-row justify-between md:justify-center w-full md:w-fit items-center gap-2">
           <div className="relative">
@@ -110,7 +117,7 @@ export function DataTableMediaChannels<TData, TValue>({
             <Button
               size="sm"
               onClick={() => setOpen(true)}
-              className=" main-button    "
+              className=" main-button !px-5 md:!px-10   "
             >
               Додати канал
             </Button>
@@ -118,7 +125,24 @@ export function DataTableMediaChannels<TData, TValue>({
         </div>
       </div>
       {/* <div className="rounded-md border"> */}
-      <div className="rounded-md border-0">
+
+      <div className="md:hidden w-full px-0 bg-white  rounded-lg relative">
+        {mediaChannels && mediaChannels.length == 0 && (
+          <div className=" w-full p-4 text-center">
+            Немає відповідних оферів
+          </div>
+        )}
+        {mediaChannels && mediaChannels.length > 0 && (
+          <SwipeContainer
+            list={mediaChannels.map((mediaChannel, i) => (
+              /*  @ts-ignore */
+              <MediaChannelCard key={i} mediaChannel={mediaChannel} />
+            ))}
+          />
+        )}
+      </div>
+
+      <div className="hidden md:block rounded-md border-0">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -168,7 +192,7 @@ export function DataTableMediaChannels<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="hidden md:flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
           size="sm"

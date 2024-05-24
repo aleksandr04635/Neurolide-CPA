@@ -20,7 +20,7 @@ const CreditCard = ({ card, type }: Props) => {
   // const user = await currentUser(); //
   const user = useCurrentUser();
   //console.log("user form  UserInfoClientIner: ", user);
-  console.log("card form  CreditCard: ", card);
+  //console.log("card form  CreditCard: ", card);
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();

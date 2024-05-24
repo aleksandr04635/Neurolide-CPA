@@ -4,7 +4,7 @@ import { SessionProvider } from "next-auth/react";
 
 import { auth } from "@/auth";
 import "./globals.css";
-import { ToastProvider } from "./(admin-layout)/_components/toast-provider";
+import { ToastProvider } from "../components/toast-provider";
 
 //import StoreProvider from "./_components/store-provider";
 

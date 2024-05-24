@@ -30,7 +30,7 @@ const TotalBalanceClientIner = ({ fullUser }: Props) => {
     if (!user) {
       router.push("/auth/login");
     }
-    console.log("user changed in TotalBalanceClientIner: ", user);
+    // console.log("user changed in TotalBalanceClientIner: ", user);
   }, [user]);
 
   /*  const onDelete = () => {

@@ -51,7 +51,7 @@ export const UserModal: React.FC<UserModalProps> = ({
   const router = useRouter();
   const user = useCurrentUser();
   //console.log("user form  UserModal: ", user);
-  console.log("data form  UserModal: ", data);
+  //console.log("data form  UserModal: ", data);
   // const [initUser, setInitUser] = useState<User | undefined>();
 
   const [error, setError] = useState<string | undefined>();
@@ -217,7 +217,7 @@ export const UserModal: React.FC<UserModalProps> = ({
       <Form {...form}>
         <form className="space-y-5 " onSubmit={form.handleSubmit(onSubmit)}>
           <div className="space-y-3 ">
-            <div className=" w-full  flex items-center justify-between gap-2">
+            <div className=" w-full  flex flex-col sm:flex-row items-center justify-between gap-2">
               {data.role == "AFFILIATE" && (
                 <>
                   <div className="w-full  h-[100px] bg-white rounded-lg flex flex-col overflow-hidden border">
@@ -247,6 +247,7 @@ export const UserModal: React.FC<UserModalProps> = ({
                     </div>
                     <div className="w-full h-[8px] bg-[#FF0000]"></div>
                   </div>
+
                   <div className="w-full  h-[100px] bg-white rounded-lg flex flex-col overflow-hidden border">
                     <div className="h-full flex flex-col justify-center p-1 ">
                       <div className="text-gray-text text-sm pl-2">Холд</div>

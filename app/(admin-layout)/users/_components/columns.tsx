@@ -182,7 +182,7 @@ export const columns: ColumnDef<UsersColumn>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className=" space-x-2 pl-1"
         >
-          <p>Роль </p>
+          <p>Статус </p>
           {column.getIsSorted() === "asc" ? (
             <IoIosArrowDown />
           ) : (

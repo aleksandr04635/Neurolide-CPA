@@ -10,7 +10,7 @@ import { Card, User } from "@prisma/client";
 import { Separator } from "@/components/ui/separator";
 import CreditCard from "./card";
 import { CardModal } from "./card-modal";
-import SwipeContainer from "../swipe-container";
+import SwipeContainer from "../../../../components/swipe-container";
 
 type Props = { cards: Card[] | null };
 

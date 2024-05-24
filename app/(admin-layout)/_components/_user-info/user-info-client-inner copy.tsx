@@ -29,7 +29,7 @@ const UserInfoClientIner = ({ fullUser }: Props) => {
     if (!user) {
       router.push("/auth/login");
     }
-    console.log("user changed in UserInfoClientIner: ", user);
+    //console.log("user changed in UserInfoClientIner: ", user);
   }, [user]);
 
   const onDelete = () => {

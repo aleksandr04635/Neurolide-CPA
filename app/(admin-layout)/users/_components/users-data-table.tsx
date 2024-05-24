@@ -26,6 +26,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { BsEyeSlash } from "react-icons/bs";
+import SwipeContainer from "@/components/swipe-container";
+import { UserCard } from "./user-card";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -60,6 +62,8 @@ export function UsersDataTable<TData, TValue>({
       columnFilters,
     },
   });
+
+  let users = table.getPrePaginationRowModel().rows.map((row) => row.original);
 
   // placeholder="🔍&#xF002; Search3"
   //font-semibold
@@ -108,7 +112,24 @@ export function UsersDataTable<TData, TValue>({
         </div>
       </div>
       {/* <div className="rounded-md border"> */}
-      <div className="rounded-md border-0">
+
+      <div className="md:hidden w-full px-0 bg-white  rounded-lg relative">
+        {users && users.length == 0 && (
+          <div className=" w-full p-4 text-center">
+            Немає відповідних оферів
+          </div>
+        )}
+        {users && users.length > 0 && (
+          <SwipeContainer
+            list={users.map((user, i) => (
+              /*  @ts-ignore */
+              <UserCard key={i} user={user} />
+            ))}
+          />
+        )}
+      </div>
+
+      <div className="hidden md:block rounded-md border-0">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -158,7 +179,7 @@ export function UsersDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="hidden md:flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
           size="sm"
