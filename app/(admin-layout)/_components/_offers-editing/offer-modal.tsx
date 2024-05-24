@@ -49,7 +49,7 @@ export const OfferModal: React.FC<OfferModalProps> = ({
   const router = useRouter();
   const user = useCurrentUser();
   //console.log("user form  OfferModal: ", user);
-  console.log("data form  OfferModal: ", data);
+  //console.log("data form  OfferModal: ", data);
   // const [initOffer, setInitOffer] = useState<Offer | undefined>();
 
   const [error, setError] = useState<string | undefined>();
@@ -116,14 +116,14 @@ export const OfferModal: React.FC<OfferModalProps> = ({
     },
   });
 
-  const {
+  /*   const {
     register,
     handleSubmit,
     formState: { errors },
   } = form;
   useEffect(() => {
-    console.log("errors from MediaChannelForm: ", errors);
-  }, [errors]);
+    console.log("errors from OffersForm: ", errors);
+  }, [errors]); */
 
   /*  useEffect(() => {
     console.log("reset run in OfferModal: ", id, initOffer, form);

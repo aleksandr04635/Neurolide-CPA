@@ -250,7 +250,7 @@ const UserInfoClientIner = ({ fullUser }: Props) => {
             Для тестування роль користувача можна змінити тут в настройках
           </p>
 
-          <div className=" flex flex-col justify-end  pb-1 gap-2">
+          <div className=" flex flex-col justify-end   gap-2">
             <Link
               className=" link-stand text-base text-center "
               href={"/settings"}

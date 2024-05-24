@@ -44,7 +44,7 @@ export const MenuButton = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clip-path="url(#clip0_5_4771)">
+            <g clipPath="url(#clip0_5_4771)">
               <path
                 d="M4.66675 7H23.3334"
                 stroke="white"

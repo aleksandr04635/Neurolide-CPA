@@ -8,8 +8,12 @@ import { useSwipeable } from "react-swipeable";
 type Props = { list: React.ReactNode[] };
 
 const SwipeContainer = ({ list }: Props) => {
-  console.log("list form  SwipeContainer: ", list);
+  //console.log("list form  SwipeContainer: ", list);
   const [currentIndex, setCurrentIndex] = useState(0);
+  //console.log("currentIndex form  SwipeContainer: ", currentIndex);
+  if (currentIndex > list.length) {
+    setCurrentIndex(0);
+  }
 
   const divs = ["Div 1", "Div 2", "Div 3", "Div 4", "Div 5"];
 

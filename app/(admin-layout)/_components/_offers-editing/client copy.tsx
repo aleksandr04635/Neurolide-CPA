@@ -21,7 +21,6 @@ interface OffersClientProps {
 export const OffersClient: React.FC<OffersClientProps> = ({ data, text }) => {
   const params = useParams();
   const router = useRouter();
-  //console.log("data from OffersClient: ", data);
 
   return (
     <>

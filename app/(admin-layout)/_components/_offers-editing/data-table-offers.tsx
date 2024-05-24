@@ -29,6 +29,9 @@ import { BsEyeSlash } from "react-icons/bs";
 import { OfferModal } from "./offer-modal";
 
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { DataTablePagination } from "./pagination";
+import SwipeContainer from "../swipe-container";
+import { OfferCard } from "./offer-card";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -37,7 +40,7 @@ interface DataTableProps<TData, TValue> {
   headerText?: string;
 }
 
-export function DataTableOffersBrand<TData, TValue>({
+export function DataTableOffers<TData, TValue>({
   columns,
   data,
   searchKey,
@@ -63,14 +66,29 @@ export function DataTableOffersBrand<TData, TValue>({
   });
 
   const [open, setOpen] = useState(false);
+  /*  const [triggerForSwipeContainer, setTriggerForSwipeContainer] =
+    useState(false);
+  console.log(
+    "triggerForSwipeContainer from DataTableOffers:",
+    triggerForSwipeContainer
+  ); */
+
+  //console.log("table.getRowModel() from DataTableOffers:", table.getRowModel());
+  /*  console.log(
+    "table.getPrePaginationRowModel() from DataTableOffers:",
+    table.getPrePaginationRowModel()
+  ); */
+  let offers = table.getPrePaginationRowModel().rows.map((row) => row.original);
+  //console.log("offers from DataTableOffers:", offers);
 
   // placeholder="🔍&#xF002; Search3"
   return (
-    <div>
+    <div className="w-full">
       <OfferModal isOpen={open} onClose={() => setOpen(false)} />
       <div className="flex flex-col md:flex-row items-start md:items-center  md:justify-between mb-2 gap-2 ">
         <div className=" bg-white text-lg py-2 px-6 rounded-lg  ">
-          {headerText.split(" ").join("\u00A0")}
+          {/* {headerText.split(" ").join("\u00A0")} */}
+          {headerText}
         </div>
         <div className="flex flex-row justify-between md:justify-center w-full md:w-fit items-center gap-2">
           <div className="relative">
@@ -79,9 +97,9 @@ export function DataTableOffersBrand<TData, TValue>({
               value={
                 (table.getColumn(searchKey)?.getFilterValue() as string) ?? ""
               }
-              onChange={(event) =>
-                table.getColumn(searchKey)?.setFilterValue(event.target.value)
-              }
+              onChange={(event) => {
+                table.getColumn(searchKey)?.setFilterValue(event.target.value);
+              }}
               className="max-w-sm bg-white shadow-none border-0 pl-[35px]"
             />
             {/*  <p className="absolute l-[10px] t-[5px]">S</p> */}
@@ -105,7 +123,7 @@ export function DataTableOffersBrand<TData, TValue>({
             <Button
               size="sm"
               onClick={() => setOpen(true)}
-              className=" main-button    "
+              className=" main-button  !px-5 md:!px-10  "
             >
               Додати офер
             </Button>
@@ -113,7 +131,25 @@ export function DataTableOffersBrand<TData, TValue>({
         </div>
       </div>
       {/* <div className="rounded-md border"> */}
-      <div className="rounded-md border-0 ">
+
+      <div className="md:hidden w-full px-0 bg-white  rounded-lg relative">
+        {offers && offers.length == 0 && (
+          <div className=" w-full p-4 text-center">
+            Немає відповідних оферів
+          </div>
+        )}
+        {offers && offers.length > 0 && (
+          <SwipeContainer
+            list={offers.map((offer, i) => (
+              /*  @ts-ignore */
+              <OfferCard key={i} offer={offer} />
+            ))}
+          />
+        )}
+      </div>
+
+      {/*  <DataTablePagination table={table} /> */}
+      <div className="hidden md:block rounded-md border-0 ">
         <Table /* className="overflow-hidden" */
         /* className=" !overflow-y-visible" */
         >
@@ -165,7 +201,7 @@ export function DataTableOffersBrand<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="hidden md:flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
           size="sm"

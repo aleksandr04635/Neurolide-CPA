@@ -21,8 +21,8 @@ const MainPage = async (props: Props) => {
   return (
     <div className="flex flex-col gap-3 w-full">
       <UserInfo />
-
-      <div className="w-full hidden md:block">
+      {/*   <div className="w-full hidden md:block"> */}
+      <div className="w-full ">
         {user?.role == "AFFILIATE" && <OffersInWorkList />}
         {(user?.role == "BRAND" || user?.role == "MANAGER") && (
           <OffersCreatedByMeAndAccepted />

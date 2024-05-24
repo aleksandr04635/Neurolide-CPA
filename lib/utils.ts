@@ -22,6 +22,23 @@ export function slugFromString(str: string) {
     .toLowerCase();
 }
 
+export function domainFromURL(urlS: string) {
+  let domain = "";
+  try {
+    // const url = new URL(urlS);
+    //domain = url.hostname;
+    const matches = urlS.match(
+      /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/im
+    );
+    //console.log("MATCHES", matches);
+
+    if (matches && matches.length > 0) {
+      domain = matches[1];
+    }
+  } catch (error) {}
+  return domain;
+}
+
 export function userRole(str: string) {
   switch (str) {
     case "AFFILIATE":
